@@ -1,6 +1,78 @@
-# OpenEuropa Corporate Site Info
+# OpenEuropa Corporate Site Information
 
-The OpenEuropa oe_corporate_site_info provides corporate information about the site, such as: site owner, content owners, classes, etc.
+The OpenEuropa Corporate Site Information module provides corporate information about the site, such as site owner, content owners, etc.
+
+The module uses the RDF SKOS module to provide SKOS modelling for the Publications Office taxonomy vocabularies.
+These are directly made available in the dependent RDF triple store.
+
+## Requirements
+
+This depends on the following software:
+
+* [PHP >=7.23](http://php.net/)
+* Virtuoso (or equivalent) triple store which contains the RDF representations of the following Publications Office (OP)
+  vocabularies: Corporate Bodies, Target Audiences, Organisation Types, Resource Types, Eurovoc
+
+## Installation
+
+Install the package and its dependencies:
+
+```bash
+composer require openeuropa/oe_corporate_site_info
+```
+
+It is strongly recommended to use the provisioned Docker image for Virtuoso that contains already the OP vocabularies.
+To do this, add the image to your `docker-compose.yml` file:
+
+```
+  sparql:
+    image: openeuropa/triple-store-dev
+    environment:
+    - SPARQL_UPDATE=true
+    - DBA_PASSWORD=dba
+    ports:
+      - "8890:8890"
+```
+
+Otherwise, make sure you have the triple store instance running and have imported those vocabularies.
+
+Next, if you are using the Task Runner to set up your site, add the `runner.yml` configuration for connecting to the
+triple store. Under the `drupal` key:
+
+```
+  sparql:
+    host: "sparql"
+    port: "8890"
+```
+
+Still in the `runner.yml`, add the instruction to create the Drupal settings for connecting to the triple store.
+Under the `drupal.settings.databases` key:
+
+```
+  sparql_default:
+    default:
+      prefix: ""
+      host: ${drupal.sparql.host}
+      port: ${drupal.sparql.port}
+      namespace: 'Drupal\Driver\Database\sparql'
+      driver: 'sparql'
+```
+
+Then you can proceed with the regular Task Runner commands for setting up the site.
+
+Otherwise, ensure that in your site's `setting.php` file you have the connection information to your own triple store instance:
+
+```
+$databases["sparql_default"] = array(
+  'default' => array(
+    'prefix' => '',
+    'host' => 'your-triple-store-host',
+    'port' => '8890',
+    'namespace' => 'Drupal\\Driver\\Database\\sparql',
+    'driver' => 'sparql'
+  )
+);
+```
 
 ## Development setup
 
@@ -94,7 +166,8 @@ docker-compose exec web ./vendor/bin/behat
 
 ## Contributing
 
-Please read [the full documentation](https://github.com/openeuropa/openeuropa) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [the full documentation](https://github.com/openeuropa/documentation) for details on our code of conduct,
+and the process for submitting pull requests to us.
 
 ## Versioning
 

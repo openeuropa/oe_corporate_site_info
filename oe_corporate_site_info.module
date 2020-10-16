@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenEuropa Site Information module.
+ * OpenEuropa Corporate Site Information module.
  */
 
 declare(strict_types = 1);

@@ -1,6 +1,9 @@
-name: OpenEuropa Site Information
+name: OpenEuropa Corporate Site Information
 description: "Set corporate information about the site, such as: site owner, content owners, etc."
 package: OpenEuropa
 
 type: module
 core: 8.x
+
+dependencies:
+  - rdf_skos:rdf_skos
