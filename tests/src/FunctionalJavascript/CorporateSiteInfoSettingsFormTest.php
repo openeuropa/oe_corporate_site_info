@@ -35,10 +35,15 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
   }
 
   /**
-   * Test site owner and content owner fields on the basic site information form.
+   * Test site owner and content owner fields on the site information form.
    */
   public function testConfigurationForm() {
-    $this->drupalLogin($this->createUser(['access content', 'administer site configuration', 'view published skos concept entities', 'access administration pages']));
+    $this->drupalLogin($this->createUser([
+      'access content',
+      'administer site configuration',
+      'view published skos concept entities',
+      'access administration pages',
+    ]));
     $this->drupalGet('/admin/config/system/site-information');
     $this->assertSession()->pageTextContains('Default content owner(s)');
     $this->assertSession()->fieldExists('Site owner');
