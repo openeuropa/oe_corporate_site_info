@@ -7,3 +7,5 @@ core: 8.x
 
 dependencies:
   - rdf_skos:rdf_skos
+  # Dependency is deprecated and has to be removed after 2.0.0 release of oe_content. Required for configuring needed RDF SKOS graphs.
+  - oe_content:oe_content
