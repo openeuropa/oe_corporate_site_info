@@ -6,3 +6,188 @@
  */
 
 declare(strict_types = 1);
+
+use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\SortArray;
+use Drupal\Core\Form\FormStateInterface;
+
+function oe_corporate_site_info_form_system_site_information_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $corporate_site_info = \Drupal::configFactory()->get('oe_corporate_site_info.settings');
+
+  $form['oe_site_information'] = [
+    '#type' => 'details',
+    '#title' => t('Corporate site information'),
+    '#open' => TRUE,
+  ];
+
+  $site_owner =  $corporate_site_info->get('site_owner') ?? NULL;
+  $site_owner_entity = NULL;
+  if (!empty($site_owner)) {
+    $site_owner_entity = \Drupal::entityTypeManager()->getStorage('skos_concept')->load($site_owner) ?? NULL;
+  }
+
+  $form['oe_site_information']['site_owner'] = [
+    '#title' => t('Site owner'),
+    '#type' => 'entity_autocomplete',
+    '#target_type' => 'skos_concept',
+    '#selection_handler' => 'default',
+    '#selection_settings' => [
+      'concept_schemes' => [
+        'http://publications.europa.eu/resource/authority/corporate-body',
+      ],
+      'match_operator' => 'CONTAINS',
+      'match_limit' => 10,
+    ],
+    '#validate_reference' => FALSE,
+    '#maxlength' => 1024,
+    '#default_value' => $site_owner_entity,
+    '#size' => 60,
+    '#placeholder' => '',
+  ];
+
+  $content_owners =  $corporate_site_info->get('content_owners') ?? [];
+  if ($form_state->get('content_owners_count') === NULL) {
+    $max = count($content_owners);
+    $form_state->set('content_owners_count', $max);
+  } else {
+    $max = $form_state->get('content_owners_count');
+  }
+  $form['oe_site_information']['content_owners']['#tree'] = TRUE;
+  for ($i = 0; $i <= $max; $i++) {
+    if (empty($content_owners[$i]['target'])) {
+      $content_owners[$i]['target'] = NULL;
+    } else {
+      $skos_entity = \Drupal::entityTypeManager()->getStorage('skos_concept')->load($content_owners[$i]['target']);
+      $content_owners[$i]['target'] = $skos_entity ?? NULL;
+    }
+
+    $form['oe_site_information']['content_owners'][$i]['target'] = [
+      '#type' => 'entity_autocomplete',
+      '#target_type' => 'skos_concept',
+      '#selection_handler' => 'default',
+      '#selection_settings' => [
+        'concept_schemes' => [
+          'http://publications.europa.eu/resource/authority/corporate-body',
+        ],
+        'match_operator' => 'CONTAINS',
+        'match_limit' => 10,
+      ],
+      '#validate_reference' => FALSE,
+      '#required' => ($max === 0),
+      '#maxlength' => 1024,
+      '#default_value' => $content_owners[$i]['target'],
+      '#size' => 60,
+      '#placeholder' => '',
+    ];
+    $form['oe_site_information']['content_owners'][$i]['_weight'] = [
+      '#type' => 'weight',
+      '#title' => t('Weight for row @number', ['@number' => $i + 1]),
+      '#title_display' => 'invisible',
+      '#delta' => $max,
+      '#default_value' => $content_owners[$i]['weight'] ?? 0,
+      '#weight' => 100,
+    ];
+  }
+  $form['oe_site_information']['content_owners'] += [
+    '#theme' => 'field_multiple_value_form',
+    '#field_name' => 'content_owners',
+    '#cardinality' => -1,
+    '#cardinality_multiple' => TRUE,
+    '#element_validate' => [
+      '_oe_corporate_site_info_content_owners_validate',
+    ],
+    '#required' => TRUE,
+    '#title' => t('Default content owner(s)'),
+    '#description' => t('This is not the writer of the content, but the subject matter expert responsible for keeping this content up to date. <br>When this field is populated, it will provide the default Content owner for all new content on this website. It can be overwritten for every new item.'),
+    '#max_delta' => ($max + 1),
+  ];
+  $id_prefix = 'content_owners';
+  $wrapper_id = Html::getUniqueId($id_prefix . '-add-more-wrapper');
+  $form['oe_site_information']['content_owners']['#prefix'] = '<div id="' . $wrapper_id . '">';
+  $form['oe_site_information']['content_owners']['#suffix'] = '</div>';
+  $form['oe_site_information']['content_owners']['add_more'] = [
+    '#type' => 'submit',
+    '#name' => strtr($id_prefix, '-', '_') . '_add_more',
+    '#value' => t('Add another item'),
+    '#attributes' => ['class' => ['field-add-more-submit']],
+    '#limit_validation_errors' => [['oe_site_information', 'content_owners'],],
+    '#submit' => ['_oe_corporate_site_info_add_more_submit'],
+    '#ajax' => [
+      'callback' => '_oe_corporate_site_info_add_more_ajax',
+      'wrapper' => $wrapper_id,
+      'effect' => 'fade',
+    ],
+  ];
+
+  $form['#submit'][] = '_oe_corporate_site_info_submit_config_form';
+}
+
+/**
+ * Validate callback for content owner fields.
+ */
+function _oe_corporate_site_info_content_owners_validate(&$element, FormStateInterface $form_state, &$complete_form): void {
+  $content_owners = $form_state->getValue('content_owners');
+  unset($content_owners['add_more']);
+  foreach($content_owners as $key => $content_owner) {
+    if (empty($content_owner['target'])) {
+      unset($content_owners[$key]);
+    }
+  }
+  if (empty($content_owners)) {
+    $form_state->setError($element, t('You have to select at least 1 content owner.'));
+  }
+}
+
+/**
+ * Submit handler for site information form.
+ */
+function _oe_corporate_site_info_submit_config_form(array $form, FormStateInterface $form_state): void {
+  $corporate_site_info = \Drupal::configFactory()->getEditable('oe_corporate_site_info.settings');
+  $site_owner = $form_state->getValue('site_owner', NULL);
+  // Save only valid site owner references.
+  if ($site_owner && \Drupal::entityTypeManager()->getStorage('skos_concept')->load($site_owner)) {
+    $corporate_site_info->set('site_owner', $site_owner);
+  }
+  else {
+    $corporate_site_info->set('site_owner', '');
+  }
+
+  $content_owners = $form_state->getValue('content_owners', []);
+  // Massage values before saving inside config.
+  unset($content_owners['add_more']);
+  foreach ($content_owners as $key => $content_owner) {
+    // Remove empty or invalid content owner references.
+    if (empty($content_owner['target']) || !\Drupal::entityTypeManager()->getStorage('skos_concept')->load($content_owner['target'])) {
+      unset($content_owners[$key]);
+      continue;
+    }
+    $content_owners[$key]['weight'] = $content_owner['_weight'];
+    unset($content_owners[$key]['_weight']);
+  }
+  // Reorder content owners by weight.
+  usort($content_owners, function ($a, $b) {
+    return SortArray::sortByKeyInt($a, $b, 'weight');
+  });
+  $corporate_site_info->set('content_owners', $content_owners);
+  $corporate_site_info->save();
+}
+
+/**
+ * Submission handler for the "Add another item" button.
+ */
+function _oe_corporate_site_info_add_more_submit(array $form, FormStateInterface $form_state): void {
+  $button = $form_state->getTriggeringElement();
+  if ($button['#name'] === 'content_owners_add_more') {
+    // Increase number of autocomplete fields.
+    $content_owner_nums = $form_state->get('content_owners_count') ?? 0;
+    $form_state->set('content_owners_count', ++$content_owner_nums);
+  }
+  $form_state->setRebuild();
+}
+
+/**
+ * Ajax callback for the "Add another item" button.
+ */
+function _oe_corporate_site_info_add_more_ajax(array $form, FormStateInterface $form_state): array {
+  return $form['oe_site_information']['content_owners'];
+}
