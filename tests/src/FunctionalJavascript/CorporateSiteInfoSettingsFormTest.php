@@ -21,7 +21,6 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
    * {@inheritdoc}
    */
   protected static $modules = [
-    'oe_content',
     'oe_corporate_site_info',
   ];
 

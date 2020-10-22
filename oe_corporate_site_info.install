@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * OpenEuropa Corporate Site Information installation file.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_install().
+ */
+function oe_corporate_site_info_install() {
+  // Configure the RDF SKOS graphs.
+  if (!\Drupal::service('config.installer')->isSyncing()) {
+    \Drupal::service('rdf_skos.skos_graph_configurator')->addGraphs([
+      'corporate_body' => 'http://publications.europa.eu/resource/authority/corporate-body',
+    ]);
+  }
+}
