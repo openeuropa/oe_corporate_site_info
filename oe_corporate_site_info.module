@@ -34,7 +34,7 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
     ],
     '#validate_reference' => FALSE,
     '#maxlength' => 1024,
-    '#default_value' => \Drupal::entityTypeManager()->getStorage('skos_concept')->load($corporate_site_info->get('site_owner')),
+    '#default_value' => \Drupal::entityTypeManager()->getStorage('skos_concept')->load($corporate_site_info->get('site_owner') ?? ''),
     '#size' => 60,
     '#placeholder' => '',
   ];
@@ -51,7 +51,7 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
     if (empty($content_owners[$i]['target'])) {
       $content_owners[$i]['target'] = NULL;
     } else {
-      $skos_entity = \Drupal::entityTypeManager()->getStorage('skos_concept')->load($content_owners[$i]['target']);
+      $skos_entity = \Drupal::entityTypeManager()->getStorage('skos_concept')->load($content_owners[$i]['target'] ?? '');
       $content_owners[$i]['target'] = $skos_entity ?? NULL;
     }
 
@@ -63,6 +63,7 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
         'concept_schemes' => [
           'http://publications.europa.eu/resource/authority/corporate-body',
         ],
+        'concept_subset' => 'oe_corporate_site_info_corporate_bodies_department_executive_agencies',
         'match_operator' => 'CONTAINS',
         'match_limit' => 10,
       ],
