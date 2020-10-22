@@ -20,12 +20,6 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
     '#open' => TRUE,
   ];
 
-  $site_owner =  $corporate_site_info->get('site_owner') ?? NULL;
-  $site_owner_entity = NULL;
-  if (!empty($site_owner)) {
-    $site_owner_entity = \Drupal::entityTypeManager()->getStorage('skos_concept')->load($site_owner) ?? NULL;
-  }
-
   $form['oe_site_information']['site_owner'] = [
     '#title' => t('Site owner'),
     '#type' => 'entity_autocomplete',
@@ -40,7 +34,7 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
     ],
     '#validate_reference' => FALSE,
     '#maxlength' => 1024,
-    '#default_value' => $site_owner_entity,
+    '#default_value' => \Drupal::entityTypeManager()->getStorage('skos_concept')->load($corporate_site_info->get('site_owner')),
     '#size' => 60,
     '#placeholder' => '',
   ];
@@ -143,21 +137,13 @@ function _oe_corporate_site_info_content_owners_validate(&$element, FormStateInt
  */
 function _oe_corporate_site_info_submit_config_form(array $form, FormStateInterface $form_state): void {
   $corporate_site_info = \Drupal::configFactory()->getEditable('oe_corporate_site_info.settings');
-  $site_owner = $form_state->getValue('site_owner', NULL);
-  // Save only valid site owner references.
-  if ($site_owner && \Drupal::entityTypeManager()->getStorage('skos_concept')->load($site_owner)) {
-    $corporate_site_info->set('site_owner', $site_owner);
-  }
-  else {
-    $corporate_site_info->set('site_owner', '');
-  }
-
+  $corporate_site_info->set('site_owner', $form_state->getValue('site_owner'));
   $content_owners = $form_state->getValue('content_owners', []);
   // Massage values before saving inside config.
   unset($content_owners['add_more']);
   foreach ($content_owners as $key => $content_owner) {
     // Remove empty or invalid content owner references.
-    if (empty($content_owner['target']) || !\Drupal::entityTypeManager()->getStorage('skos_concept')->load($content_owner['target'])) {
+    if (empty($content_owner['target'])) {
       unset($content_owners[$key]);
       continue;
     }
@@ -179,8 +165,8 @@ function _oe_corporate_site_info_add_more_submit(array $form, FormStateInterface
   $button = $form_state->getTriggeringElement();
   if ($button['#name'] === 'content_owners_add_more') {
     // Increase number of autocomplete fields.
-    $content_owner_nums = $form_state->get('content_owners_count') ?? 0;
-    $form_state->set('content_owners_count', ++$content_owner_nums);
+    $content_owners_count = $form_state->get('content_owners_count') ?? 0;
+    $form_state->set('content_owners_count', ++$content_owners_count);
   }
   $form_state->setRebuild();
 }
