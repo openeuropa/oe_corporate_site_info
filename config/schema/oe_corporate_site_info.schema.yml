@@ -9,12 +9,5 @@ oe_corporate_site_info.settings:
       label: 'Content owners SKOS entities'
       type: sequence
       sequence:
-        label: 'SKOS entity id with weight'
-        type: mapping
-        mapping:
-          target:
-            type: string
-            label: 'SKOS entity ID'
-          weight:
-            type: integer
-            label: 'Weight'
+        label: 'SKOS entity ID'
+        type: string
