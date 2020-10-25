@@ -51,32 +51,32 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
     $assert_session = $this->assertSession();
 
     $page->fillField('Site owner', 'ACP–EU Joint Assembly');
-    $page->fillField('content_owners[0][target]', 'Arab Common Market');
+    $page->fillField('content_owners[0][target]', 'Directorate-General for Agriculture and Rural Development');
 
     $add_more_button = $page->findButton('content_owners_add_more');
 
     $add_more_button->click();
     $assert_session->waitForField('content_owners[1][target]');
-    $page->fillField('content_owners[1][target]', 'European Union Agency for the Cooperation of Energy Regulators');
+    $page->fillField('content_owners[1][target]', 'Directorate-General for Budget');
 
     $page->pressButton('Save configuration');
     $assert_session->waitForField('content_owners[2][target]');
-    $page->fillField('content_owners[2][target]', 'Audit Board of the European Communities');
+    $page->fillField('content_owners[2][target]', 'Directorate-General for Climate Action');
     $page->pressButton('Save configuration');
 
     $assert_session->fieldValueEquals('Site owner', 'ACP–EU Joint Assembly (http://publications.europa.eu/resource/authority/corporate-body/ACP-EU_JA)');
-    $assert_session->fieldValueEquals('content_owners[0][target]', 'Arab Common Market (http://publications.europa.eu/resource/authority/corporate-body/ACM)');
-    $assert_session->fieldValueEquals('content_owners[1][target]', 'European Union Agency for the Cooperation of Energy Regulators (http://publications.europa.eu/resource/authority/corporate-body/ACER)');
-    $assert_session->fieldValueEquals('content_owners[2][target]', 'Audit Board of the European Communities (http://publications.europa.eu/resource/authority/corporate-body/ABEC)');
+    $assert_session->fieldValueEquals('content_owners[0][target]', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
+    $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');
+    $assert_session->fieldValueEquals('content_owners[2][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
 
     $page->pressButton('Show row weights');
     $page->selectFieldOption('content_owners[2][_weight]', -2);
     $page->pressButton('Save configuration');
 
     $assert_session->fieldValueEquals('Site owner', 'ACP–EU Joint Assembly (http://publications.europa.eu/resource/authority/corporate-body/ACP-EU_JA)');
-    $assert_session->fieldValueEquals('content_owners[0][target]', 'Audit Board of the European Communities (http://publications.europa.eu/resource/authority/corporate-body/ABEC)');
-    $assert_session->fieldValueEquals('content_owners[1][target]', 'Arab Common Market (http://publications.europa.eu/resource/authority/corporate-body/ACM)');
-    $assert_session->fieldValueEquals('content_owners[2][target]', 'European Union Agency for the Cooperation of Energy Regulators (http://publications.europa.eu/resource/authority/corporate-body/ACER)');
+    $assert_session->fieldValueEquals('content_owners[0][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
+    $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
+    $assert_session->fieldValueEquals('content_owners[2][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');
 
     $page->fillField('Site owner', 'invalid skos term');
     $page->fillField('content_owners[1][target]', '');
@@ -86,8 +86,8 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
 
     $page->pressButton('Save configuration');
     $assert_session->fieldValueEquals('Site owner', '');
-    $assert_session->fieldValueEquals('content_owners[0][target]', 'Audit Board of the European Communities (http://publications.europa.eu/resource/authority/corporate-body/ABEC)');
-    $assert_session->fieldValueEquals('content_owners[1][target]', 'European Union Agency for the Cooperation of Energy Regulators (http://publications.europa.eu/resource/authority/corporate-body/ACER)');
+    $assert_session->fieldValueEquals('content_owners[0][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
+    $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');
     $assert_session->fieldValueEquals('content_owners[2][target]', '');
 
     // Content owners field is required.
