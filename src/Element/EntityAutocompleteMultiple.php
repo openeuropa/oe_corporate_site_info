@@ -6,7 +6,6 @@ namespace Drupal\oe_corporate_site_info\Element;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
 
@@ -17,11 +16,10 @@ use Drupal\Core\Render\Element\FormElement;
  * entities, which can come from all or specific bundles of an entity type.
  * Some features and behavior of this form element inherited from
  * the Autocomplete widget.
+ *
  * @see \Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget
  *
  * Properties:
- * - #max_delta: (optional) Maximum possible number of values. Defaults to -1
- * (unlimited).
  * - #add_more_title: (optional) Title of the "add more" button.
  *
  * Usage example:
@@ -64,7 +62,6 @@ class EntityAutocompleteMultiple extends FormElement {
       '#cardinality' => -1,
       '#cardinality_multiple' => TRUE,
       '#description' => NULL,
-      '#max_delta' => 10,
       '#add_more_title' => $this->t('Add another item'),
       '#element_validate' => [[$class, 'validateEntityAutocompleteItems']],
       '#process' => [
@@ -85,6 +82,7 @@ class EntityAutocompleteMultiple extends FormElement {
    *   The original complete form array.
    *
    * @return array
+   *   The array of element.
    */
   public static function processEntityAutocompleteMultiple(array &$element, FormStateInterface $form_state, array &$complete_form): array {
     unset($element['#type']);
@@ -134,7 +132,7 @@ class EntityAutocompleteMultiple extends FormElement {
       '#name' => strtr($id_prefix, '-', '_') . '_add_more',
       '#value' => $element['#add_more_title'],
       '#attributes' => ['class' => ['field-add-more-submit']],
-      '#limit_validation_errors' => [$element['#array_parents'],],
+      '#limit_validation_errors' => [$element['#array_parents']],
       '#submit' => [[get_called_class(), 'addMoreSubmit']],
       '#ajax' => [
         'callback' => [get_called_class(), 'addMoreAjax'],
@@ -157,11 +155,11 @@ class EntityAutocompleteMultiple extends FormElement {
    * @param array $complete_form
    *   The original complete form array.
    */
-  public static function validateEntityAutocompleteItems(&$element, FormStateInterface $form_state, &$complete_form) {
+  public static function validateEntityAutocompleteItems(array &$element, FormStateInterface $form_state, array &$complete_form) {
     if ($element['#required'] === TRUE) {
       $values = $form_state->getValue(implode('.', $element['#parents'])) ?? [];
       unset($values['add_more']);
-      foreach($values as $key => $value) {
+      foreach ($values as $key => $value) {
         if (empty($value['target'])) {
           unset($values[$key]);
         }
@@ -191,13 +189,12 @@ class EntityAutocompleteMultiple extends FormElement {
     $form_state->setRebuild();
   }
 
-
   /**
    * Ajax callback for the "Add another item" button.
    */
   public static function addMoreAjax(array $form, FormStateInterface $form_state) {
     $button = $form_state->getTriggeringElement();
-    return  NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
+    return NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
   }
 
   /**
@@ -227,7 +224,13 @@ class EntityAutocompleteMultiple extends FormElement {
    */
   protected static function getWidgetStateParents(array $parents, string $field_name): array {
     // Field processing data is placed at
-    // $form_state->get(['field_storage', '#parents', ...$parents..., '#fields', $field_name]),
+    // $form_state->get([
+    // 'field_storage',
+    // '#parents',
+    // ...$parents...,
+    // '#fields',
+    // $field_name,
+    // ]),
     // to avoid clashes between field names and $parents parts.
     return array_merge(['field_storage', '#parents'], $parents, ['#fields', $field_name]);
   }

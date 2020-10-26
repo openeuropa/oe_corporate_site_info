@@ -13,7 +13,7 @@ use Drupal\rdf_skos\Plugin\PredicateMapperInterface;
 
 /**
  * Creates a subset of the corporate bodies vocabulary.
- *
+ * @codingStandardsIgnoreStart
  * @ConceptSubset(
  *   id = "oe_corporate_site_info_corporate_bodies_department_executive_agencies",
  *   label = @Translation("Departments & Executive Agencies"),
@@ -23,6 +23,7 @@ use Drupal\rdf_skos\Plugin\PredicateMapperInterface;
  *     "http://publications.europa.eu/resource/authority/corporate-body"
  *   }
  * )
+ * @codingStandardsIgnoreEnd
  */
 class DepartmentsAgencies extends ConceptSubsetPluginBase implements PredicateMapperInterface {
 

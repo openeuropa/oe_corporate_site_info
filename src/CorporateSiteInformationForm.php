@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types = 1);
 
 namespace Drupal\oe_corporate_site_info;
 
@@ -7,6 +8,9 @@ use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\system\Form\SiteInformationForm;
 
+/**
+ * Class replacement for the original SiteInformationForm.
+ */
 class CorporateSiteInformationForm extends SiteInformationForm {
 
   /**
@@ -41,7 +45,7 @@ class CorporateSiteInformationForm extends SiteInformationForm {
       '#placeholder' => '',
     ];
 
-    $content_owners =  $corporate_site_info->get('content_owners') ?? [];
+    $content_owners = $corporate_site_info->get('content_owners') ?? [];
     foreach ($content_owners as $key => $content_owner) {
       $skos_entity = \Drupal::entityTypeManager()->getStorage('skos_concept')->load($content_owner ?? '');
       $content_owners[$key] = $skos_entity ?? [];
@@ -101,6 +105,5 @@ class CorporateSiteInformationForm extends SiteInformationForm {
     $corporate_site_info->save();
     parent::submitForm($form, $form_state);
   }
-
 
 }
