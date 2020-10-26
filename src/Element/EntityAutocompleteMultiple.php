@@ -25,7 +25,7 @@ use Drupal\Core\Render\Element\FormElement;
  * Usage example:
  * @code
  * $form['my_element'] = [
- *  '#type' => 'entity_autocomplete_multiple',
+ *  '#type' => 'oe_corporate_site_info_entity_autocomplete_multiple',
  *  '#target_type' => 'node',
  *  '#tags' => TRUE,
  *  '#default_value' => [
@@ -48,7 +48,7 @@ use Drupal\Core\Render\Element\FormElement;
  * @see \Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection
  * @see \Drupal\Core\Entity\Element\EntityAutocomplete
  *
- * @FormElement("entity_autocomplete_multiple")
+ * @FormElement("oe_corporate_site_info_entity_autocomplete_multiple")
  */
 class EntityAutocompleteMultiple extends FormElement {
 

@@ -53,7 +53,7 @@ class CorporateSiteInformationForm extends SiteInformationForm {
 
     $form['oe_site_information']['content_owners'] = [
       '#title' => $this->t('Default content owner(s)'),
-      '#type' => 'entity_autocomplete_multiple',
+      '#type' => 'oe_corporate_site_info_entity_autocomplete_multiple',
       '#required' => TRUE,
       '#target_type' => 'skos_concept',
       '#selection_handler' => 'default:skos_concept',
