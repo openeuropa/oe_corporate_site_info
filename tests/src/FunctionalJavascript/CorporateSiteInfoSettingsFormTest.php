@@ -82,10 +82,10 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
     $page->fillField('content_owners[1][target]', '');
     $page->pressButton('Save configuration');
     $assert_session->pageTextContainsOnce('There are no entities matching "invalid skos term".');
-    $page->fillField('Site owner', '');
+    $page->fillField('Site owner', 'ACP–EU Joint Assembly');
 
     $page->pressButton('Save configuration');
-    $assert_session->fieldValueEquals('Site owner', '');
+    $assert_session->fieldValueEquals('Site owner', 'ACP–EU Joint Assembly (http://publications.europa.eu/resource/authority/corporate-body/ACP-EU_JA)');
     $assert_session->fieldValueEquals('content_owners[0][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
     $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');
     $assert_session->fieldValueEquals('content_owners[2][target]', '');

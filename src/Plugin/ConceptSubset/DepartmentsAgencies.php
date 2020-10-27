@@ -39,7 +39,7 @@ class DepartmentsAgencies extends ConceptSubsetPluginBase implements PredicateMa
       // Executive agency.
       'http://publications.europa.eu/resource/authority/corporate-body-classification/AGENCY_EXEC',
     ];
-    $query->condition('ewcms_corporate_body_classification', $types, 'IN');
+    $query->condition('oe_corporate_site_info_corporate_body_classification', $types, 'IN');
   }
 
   /**
@@ -48,7 +48,7 @@ class DepartmentsAgencies extends ConceptSubsetPluginBase implements PredicateMa
   public function getPredicateMapping(): array {
     $mapping = [];
 
-    $mapping['ewcms_corporate_body_classification'] = [
+    $mapping['oe_corporate_site_info_corporate_body_classification'] = [
       'column' => 'target_id',
       'predicate' => ['http://purl.org/dc/terms/type'],
       'format' => RdfFieldHandlerInterface::RESOURCE,
@@ -63,7 +63,7 @@ class DepartmentsAgencies extends ConceptSubsetPluginBase implements PredicateMa
   public function getBaseFieldDefinitions(): array {
     $fields = [];
 
-    $fields['ewcms_corporate_body_classification'] = BaseFieldDefinition::create('entity_reference')
+    $fields['oe_corporate_site_info_corporate_body_classification'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Corporate Bodies Classification'))
       ->setDescription(t('The corporate body classification.'))
       ->setSetting('target_type', 'skos_concept')

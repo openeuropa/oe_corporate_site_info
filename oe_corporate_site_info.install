@@ -14,7 +14,7 @@ function oe_corporate_site_info_install(): void {
   // Configure the RDF SKOS graphs.
   if (!\Drupal::service('config.installer')->isSyncing()) {
     \Drupal::service('rdf_skos.skos_graph_configurator')->addGraphs([
-      'corporate_body' => 'http://publications.europa.eu/resource/authority/corporate-body',
+      'oe_corporate_site_info_corporate_body' => 'http://publications.europa.eu/resource/authority/corporate-body',
     ]);
   }
 }

@@ -6,7 +6,7 @@ oe_corporate_site_info.settings:
       type: string
       label: 'Site owner SKOS entity ID'
     content_owners:
-      label: 'Content owners SKOS entities'
+      label: 'Content owner SKOS entity IDs'
       type: sequence
       sequence:
         label: 'SKOS entity ID'

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\oe_corporate_site_info\Element;
 
@@ -27,20 +27,12 @@ use Drupal\Core\Render\Element\FormElement;
  * $form['my_element'] = [
  *  '#type' => 'oe_corporate_site_info_entity_autocomplete_multiple',
  *  '#target_type' => 'node',
- *  '#tags' => TRUE,
  *  '#default_value' => [
- *    [
- *      'target' => $entity,
- *      'weight' => $weight_int,
- *    ],
+ *    $entity,
  *  ],
  *  '#selection_handler' => 'default',
  *  '#selection_settings' => [
  *    'target_bundles' => ['article', 'page'],
- *   ],
- *  '#autocreate' => [
- *    'bundle' => 'article',
- *    'uid' => <a valid user ID>,
  *   ],
  * ];
  * @endcode
@@ -117,7 +109,6 @@ class EntityAutocompleteMultiple extends FormElement {
         '#type' => 'weight',
         '#title' => t('Weight for row @number', ['@number' => $i + 1]),
         '#title_display' => 'invisible',
-        '#delta' => 10,
         '#default_value' => $i,
         '#weight' => 100,
       ];
@@ -140,13 +131,13 @@ class EntityAutocompleteMultiple extends FormElement {
         'effect' => 'fade',
       ],
     ];
-    // Remove garbage elements from root level of the element.
+    // Remove leftover from root element array.
     unset($element['#maxlength']);
     return $element;
   }
 
   /**
-   * Element validator for checking.
+   * Validate autocomplete field values.
    *
    * @param array $element
    *   The element.
@@ -156,22 +147,30 @@ class EntityAutocompleteMultiple extends FormElement {
    *   The original complete form array.
    */
   public static function validateEntityAutocompleteItems(array &$element, FormStateInterface $form_state, array &$complete_form) {
-    if ($element['#required'] === TRUE) {
-      $values = $form_state->getValue(implode('.', $element['#parents'])) ?? [];
-      unset($values['add_more']);
-      foreach ($values as $key => $value) {
-        if (empty($value['target'])) {
-          unset($values[$key]);
-        }
-      }
-      if (empty($values)) {
-        $form_state->setError($element, t('You have to select at least 1 content owner.'));
+    if (empty($element['#required'])) {
+      return;
+    }
+
+    $values = $form_state->getValue(implode('.', $element['#parents'])) ?? [];
+    unset($values['add_more']);
+    foreach ($values as $key => $value) {
+      if (empty($value['target'])) {
+        unset($values[$key]);
       }
     }
+    if (empty($values)) {
+      $form_state->setError($element, t('You have to select at least 1 content owner.'));
+    }
+
   }
 
   /**
-   * Submission handler for the "Add another item" button.
+   * Handles the "Add another item" button AJAX request.
+   *
+   * @param array $form
+   *   The build form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
   public static function addMoreSubmit(array $form, FormStateInterface $form_state): void {
     $button = $form_state->getTriggeringElement();
@@ -191,6 +190,11 @@ class EntityAutocompleteMultiple extends FormElement {
 
   /**
    * Ajax callback for the "Add another item" button.
+   *
+   * @param array $form
+   *   The build form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
   public static function addMoreAjax(array $form, FormStateInterface $form_state) {
     $button = $form_state->getTriggeringElement();
@@ -199,15 +203,34 @@ class EntityAutocompleteMultiple extends FormElement {
 
   /**
    * Helper method for extracting form element state data.
+   *
+   * @param array $parents
+   *   The parents array.
+   * @param string $field_name
+   *   The field name.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return array|null
+   *   Actual form element state.
    */
-  public static function getWidgetState(array $parents, $field_name, FormStateInterface $form_state): ?array {
+  public static function getWidgetState(array $parents, string $field_name, FormStateInterface $form_state): ?array {
     return NestedArray::getValue($form_state->getStorage(), static::getWidgetStateParents($parents, $field_name));
   }
 
   /**
    * Helper method for updating form element state data.
+   *
+   * @param array $parents
+   *   The parents array.
+   * @param string $field_name
+   *   The field name.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param array $field_state
+   *   The field state.
    */
-  public static function setWidgetState(array $parents, $field_name, FormStateInterface $form_state, array $field_state): void {
+  public static function setWidgetState(array $parents, string $field_name, FormStateInterface $form_state, array $field_state): void {
     NestedArray::setValue($form_state->getStorage(), static::getWidgetStateParents($parents, $field_name), $field_state);
   }
 
@@ -232,7 +255,10 @@ class EntityAutocompleteMultiple extends FormElement {
     // $field_name,
     // ]),
     // to avoid clashes between field names and $parents parts.
-    return array_merge(['field_storage', '#parents'], $parents, ['#fields', $field_name]);
+    return array_merge(['field_storage', '#parents'], $parents, [
+      '#fields',
+      $field_name,
+    ]);
   }
 
 }
