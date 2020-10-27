@@ -96,6 +96,8 @@ class EntityAutocompleteMultiple extends FormElement {
     for ($i = 0; $i <= $max; $i++) {
       $element[$i]['target'] = [
         '#type' => 'entity_autocomplete',
+        '#title' => t('@title (value @number)', ['@title' => $element['#title'], '@number' => $i + 1]),
+        '#title_display' => 'invisible',
         '#target_type' => $element['#target_type'],
         '#selection_handler' => $element['#selection_handler'],
         '#selection_settings' => $element['#selection_settings'],

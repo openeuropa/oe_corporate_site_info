@@ -21,6 +21,7 @@ drupal:
     - "./vendor/bin/drush config-set system.theme default bartik -y"
     - "./vendor/bin/drush config-set system.theme admin seven -y"
     - "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y"
+    - "./vendor/bin/drush config-set system.site page.front /user -y"
     # Enable the modules.
     - "./vendor/bin/drush en oe_corporate_site_info -y"
   settings:

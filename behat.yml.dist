@@ -6,12 +6,18 @@ default:
       contexts:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\Tests\oe_paragraphs\Behat\FieldsContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\Tests\oe_corporate_site_info\Behat\FeatureContext
   extensions:
     Drupal\MinkExtension:
       goutte: ~
-      selenium2: ~
       ajax_timeout: 10
       javascript_session: selenium2
+      browser_name: "${selenium.browser}"
+      selenium2:
+        wd_host: '${selenium.host}:${selenium.port}/wd/hub'
+        capabilities: { "browser": "${selenium.browser}", "version": "*" }
       base_url: "${drupal.base_url}"
     Drupal\DrupalExtension:
       api_driver: "drupal"
