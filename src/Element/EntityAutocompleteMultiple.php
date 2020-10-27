@@ -197,8 +197,11 @@ class EntityAutocompleteMultiple extends FormElement {
    *   The build form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
+   *
+   * @return array|null
+   *   The element.
    */
-  public static function addMoreAjax(array $form, FormStateInterface $form_state) {
+  public static function addMoreAjax(array $form, FormStateInterface $form_state): ?array {
     $button = $form_state->getTriggeringElement();
     return NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
   }
@@ -248,15 +251,17 @@ class EntityAutocompleteMultiple extends FormElement {
    *   The location of processing information within $form_state.
    */
   protected static function getWidgetStateParents(array $parents, string $field_name): array {
+    // phpcs:disable
     // Field processing data is placed at
     // $form_state->get([
-    // 'field_storage',
-    // '#parents',
-    // ...$parents...,
-    // '#fields',
-    // $field_name,
+    //   'field_storage',
+    //   '#parents',
+    //   ...$parents...,
+    //   '#fields',
+    //   $field_name,
     // ]),
     // to avoid clashes between field names and $parents parts.
+    // phpcs:enable
     return array_merge(['field_storage', '#parents'], $parents, [
       '#fields',
       $field_name,

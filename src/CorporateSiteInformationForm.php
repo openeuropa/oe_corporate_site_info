@@ -9,7 +9,6 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Path\AliasManagerInterface as CoreAliasManagerInterface;
 use Drupal\Core\Path\PathValidatorInterface;
 use Drupal\Core\Routing\RequestContext;
 use Drupal\path_alias\AliasManagerInterface;
@@ -42,7 +41,7 @@ class CorporateSiteInformationForm extends SiteInformationForm {
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, $alias_manager, PathValidatorInterface $path_validator, RequestContext $request_context, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(ConfigFactoryInterface $config_factory, AliasManagerInterface $alias_manager, PathValidatorInterface $path_validator, RequestContext $request_context, EntityTypeManagerInterface $entity_type_manager) {
     parent::__construct($config_factory, $alias_manager, $path_validator, $request_context);
     $this->entityTypeManager = $entity_type_manager;
   }
