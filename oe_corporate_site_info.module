@@ -7,7 +7,6 @@
 
 declare(strict_types = 1);
 
-use Drupal\Component\Utility\SortArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\rdf_skos\Entity\ConceptInterface;
 
@@ -96,11 +95,6 @@ function _oe_corporate_site_info_settings_form_submit(&$form, FormStateInterface
   $corporate_site_info = \Drupal::configFactory()->getEditable('oe_corporate_site_info.settings');
   $corporate_site_info->set('site_owner', $form_state->getValue('site_owner'));
   $content_owners = $form_state->getValue('content_owners', []);
-  $content_owner_ids = [];
-  foreach ($content_owners as $key => $content_owner) {
-    $content_owner_ids[] = $content_owner['target'];
-  }
-
-  $corporate_site_info->set('content_owners', $content_owner_ids);
+  $corporate_site_info->set('content_owners', $content_owners);
   $corporate_site_info->save();
 }

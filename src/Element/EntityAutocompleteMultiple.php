@@ -7,7 +7,6 @@ namespace Drupal\oe_corporate_site_info\Element;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\SortArray;
-use Drupal\Core\Entity\Element\EntityAutocomplete;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
 
@@ -53,8 +52,6 @@ class EntityAutocompleteMultiple extends FormElement {
     $class = get_class($this);
     return [
       '#theme' => 'field_multiple_value_form',
-      '#cardinality' => -1,
-      '#cardinality_multiple' => TRUE,
       '#description' => NULL,
       '#add_more_title' => $this->t('Add another item'),
       '#element_validate' => [[$class, 'validateEntityAutocompleteItems']],
@@ -63,21 +60,6 @@ class EntityAutocompleteMultiple extends FormElement {
         [$class, 'processAjaxForm'],
       ],
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
-    if (!empty($input) && is_array($input)) {
-      $input = array_filter($input, function ($value) {
-        return !empty($value['target']);
-      });
-      usort($input, function ($a, $b) {
-        return SortArray::sortByKeyInt($a, $b, '_weight');
-      });
-      return $input;
-    }
   }
 
   /**
@@ -166,22 +148,27 @@ class EntityAutocompleteMultiple extends FormElement {
    *   The original complete form array.
    */
   public static function validateEntityAutocompleteItems(array &$element, FormStateInterface $form_state, array &$complete_form) {
-    if ($element['#required'] === TRUE && empty($element['#value'])) {
+    // We do not need to use #value element for avoiding double work
+    // related to handling values for entity_autocomplete form elements.
+    // Instead, we can just slightly cleanup and extract needed data from
+    // ready form state values.
+    $values = $form_state->getValue(implode('.', $element['#parents'])) ?? [];
+    unset($values['add_more']);
+    $values = array_filter($values, function ($value) {
+      return !empty($value['target']);
+    });
+    usort($values, function ($a, $b) {
+      return SortArray::sortByKeyInt($a, $b, '_weight');
+    });
+    $entity_ids = array_map(function (array $item) {
+      return $item['target'];
+    }, $values);
+
+    if (empty($entity_ids)) {
       $form_state->setError($element, t('You have to select at least 1 content owner.'));
     }
 
-    // Prepare data for passing to element value.
-    $values = [];
-    foreach ($element['#value'] as $value) {
-      $match = EntityAutocomplete::extractEntityIdFromAutocompleteInput($value['target']);
-      if ($match !== NULL) {
-        $values[] = [
-          'target' => $match,
-        ];
-      }
-    }
-
-    $form_state->setValueForElement($element, $values);
+    $form_state->setValueForElement($element, $entity_ids);
 
   }
 
