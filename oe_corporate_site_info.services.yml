@@ -1,5 +1,0 @@
-services:
-  oe_corporate_site_info.route_subscriber:
-    class: Drupal\oe_corporate_site_info\Routing\SiteInfoRouteSubscriber
-    tags:
-      - { name: event_subscriber }
