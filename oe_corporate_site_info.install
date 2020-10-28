@@ -12,6 +12,7 @@ declare(strict_types = 1);
  */
 function oe_corporate_site_info_install(): void {
   // Configure the RDF SKOS graphs.
+  // @TODO Update the following conditional expression and update the function's signature with the usage of $is_syncing beginning from core version 8.9.
   if (!\Drupal::service('config.installer')->isSyncing()) {
     \Drupal::service('rdf_skos.skos_graph_configurator')->addGraphs([
       'oe_corporate_site_info_corporate_body' => 'http://publications.europa.eu/resource/authority/corporate-body',
