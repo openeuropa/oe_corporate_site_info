@@ -52,6 +52,7 @@ class EntityAutocompleteMultiple extends FormElement {
     $class = get_class($this);
     return [
       '#theme' => 'field_multiple_value_form',
+      '#cardinality_multiple' => TRUE,
       '#description' => NULL,
       '#add_more_title' => $this->t('Add another item'),
       '#element_validate' => [[$class, 'validateEntityAutocompleteItems']],
@@ -147,7 +148,7 @@ class EntityAutocompleteMultiple extends FormElement {
    * @param array $complete_form
    *   The original complete form array.
    */
-  public static function validateEntityAutocompleteItems(array &$element, FormStateInterface $form_state, array &$complete_form) {
+  public static function validateEntityAutocompleteItems(array &$element, FormStateInterface $form_state, array &$complete_form): void {
     // We do not need to use #value element for avoiding double work
     // related to handling values for entity_autocomplete form elements.
     // Instead, we can just slightly cleanup and extract needed data from
