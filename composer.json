@@ -20,7 +20,6 @@
         "guzzlehttp/guzzle": "~6.3",
         "openeuropa/code-review": "~1.5.0",
         "openeuropa/drupal-core-require-dev": "^8.8",
-        "openeuropa/oe_paragraphs": "~1.6.0",
         "openeuropa/task-runner": "~1.0@beta",
         "phpunit/phpunit": "~6.0"
     },
@@ -42,9 +41,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Drupal\\Tests\\oe_corporate_site_info\\": "./tests/src/",
-            "Drupal\\Tests\\oe_corporate_site_info\\Behat\\": "./tests/Behat/",
-            "Drupal\\Tests\\oe_paragraphs\\": "./build/modules/contrib/oe_paragraphs/tests/"
+            "Drupal\\Tests\\oe_corporate_site_info\\": "./tests/src/"
         }
     },
     "extra": {

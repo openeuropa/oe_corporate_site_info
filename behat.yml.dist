@@ -6,9 +6,6 @@ default:
       contexts:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\Tests\oe_paragraphs\Behat\FieldsContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\Tests\oe_corporate_site_info\Behat\FeatureContext
   extensions:
     Drupal\MinkExtension:
       goutte: ~
