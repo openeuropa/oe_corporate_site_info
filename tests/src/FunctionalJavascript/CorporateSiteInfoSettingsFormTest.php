@@ -17,11 +17,6 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'seven';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $modules = [
     'oe_corporate_site_info',
   ];
@@ -63,7 +58,6 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
     $page->fillField('content_owners[1][target]', 'Directorate-General for Budget');
 
     $page->pressButton('Save configuration');
-    $assert_session->waitForField('content_owners[2][target]');
     $page->fillField('content_owners[2][target]', 'Directorate-General for Climate Action');
     $page->pressButton('Save configuration');
 
@@ -97,7 +91,7 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
     $page->fillField('content_owners[0][target]', '');
     $page->fillField('content_owners[1][target]', '');
     $page->pressButton('Save configuration');
-    $assert_session->pageTextContainsOnce('You have to select at least 1 content owner.');
+    $assert_session->pageTextContainsOnce('You have to select at least 1 entity reference.');
   }
 
 }

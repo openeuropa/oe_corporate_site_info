@@ -101,7 +101,6 @@ class EntityAutocompleteMultiple extends FormElement {
         '#target_type' => $element['#target_type'],
         '#selection_handler' => $element['#selection_handler'],
         '#selection_settings' => $element['#selection_settings'],
-        '#validate_reference' => FALSE,
         '#maxlength' => $element['#maxlength'],
         '#default_value' => $element['#default_value'][$i] ?? NULL,
         '#size' => $element['#size'],
@@ -166,7 +165,7 @@ class EntityAutocompleteMultiple extends FormElement {
     }, $values);
 
     if (empty($entity_ids)) {
-      $form_state->setError($element, t('You have to select at least 1 content owner.'));
+      $form_state->setError($element, t('You have to select at least 1 entity reference.'));
     }
 
     $form_state->setValueForElement($element, $entity_ids);
