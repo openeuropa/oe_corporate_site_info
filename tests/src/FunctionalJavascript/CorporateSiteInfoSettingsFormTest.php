@@ -91,7 +91,7 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
     $page->fillField('content_owners[0][target]', '');
     $page->fillField('content_owners[1][target]', '');
     $page->pressButton('Save configuration');
-    $assert_session->pageTextContainsOnce('You have to select at least 1 entity reference.');
+    $assert_session->pageTextContainsOnce('You have to select at least one entity reference.');
   }
 
 }

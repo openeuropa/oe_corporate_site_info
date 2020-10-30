@@ -40,6 +40,7 @@ use Drupal\Core\Render\Element\FormElement;
  *
  * @see \Drupal\Core\Entity\Plugin\EntityReferenceSelection\DefaultSelection
  * @see \Drupal\Core\Entity\Element\EntityAutocomplete
+ * @see \Drupal\Core\Field\WidgetBase
  *
  * @FormElement("oe_corporate_site_info_entity_autocomplete_multiple")
  */
@@ -165,7 +166,7 @@ class EntityAutocompleteMultiple extends FormElement {
     }, $values);
 
     if (empty($entity_ids)) {
-      $form_state->setError($element, t('You have to select at least 1 entity reference.'));
+      $form_state->setError($element, t('You have to select at least one entity reference.'));
     }
 
     $form_state->setValueForElement($element, $entity_ids);
@@ -173,7 +174,7 @@ class EntityAutocompleteMultiple extends FormElement {
   }
 
   /**
-   * Handles the "Add another item" button AJAX request.
+   * Submission handler for the "Add another item" button.
    *
    * @param array $form
    *   The build form.
@@ -224,6 +225,8 @@ class EntityAutocompleteMultiple extends FormElement {
    *
    * @return array|null
    *   Actual form element state.
+   *
+   * @see \Drupal\Core\Field\WidgetBase::getWidgetState()
    */
   public static function getWidgetState(array $parents, string $field_name, FormStateInterface $form_state): ?array {
     return NestedArray::getValue($form_state->getStorage(), static::getWidgetStateParents($parents, $field_name));
@@ -240,6 +243,8 @@ class EntityAutocompleteMultiple extends FormElement {
    *   The form state.
    * @param array $field_state
    *   The field state.
+   *
+   * @see \Drupal\Core\Field\WidgetBase::setWidgetState()
    */
   public static function setWidgetState(array $parents, string $field_name, FormStateInterface $form_state, array $field_state): void {
     NestedArray::setValue($form_state->getStorage(), static::getWidgetStateParents($parents, $field_name), $field_state);
@@ -255,17 +260,13 @@ class EntityAutocompleteMultiple extends FormElement {
    *
    * @return array
    *   The location of processing information within $form_state.
+   *
+   * @see \Drupal\Core\Field\WidgetBase::getWidgetStateParents()
    */
   protected static function getWidgetStateParents(array $parents, string $field_name): array {
     // phpcs:disable
     // Field processing data is placed at
-    // $form_state->get([
-    //   'field_storage',
-    //   '#parents',
-    //   ...$parents...,
-    //   '#fields',
-    //   $field_name,
-    // ]),
+    // $form_state->get(['field_storage', '#parents', ...$parents..., '#fields', $field_name]),
     // to avoid clashes between field names and $parents parts.
     // phpcs:enable
     return array_merge(['field_storage', '#parents'], $parents, [
