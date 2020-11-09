@@ -90,7 +90,7 @@ class CorporateSiteInformationContext extends RawDrupalContext {
 
     // Fail if more than one entity is found.
     if (count($entities) > 1) {
-      throw new \InvalidArgumentException("No SKOS concept found with label '{$label}'.");
+      throw new \InvalidArgumentException("More than one SKOS concept found with label '{$label}'.");
     }
 
     return reset($entities);
