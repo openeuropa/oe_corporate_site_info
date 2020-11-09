@@ -56,11 +56,16 @@ class CorporateSiteInformationContext extends RawDrupalContext {
    * @Then the site owner should be set to :arg1
    */
   public function assertSiteOwner(string $label): void {
-    $expected = $this->loadEntityByLabel($label);
-    $actual = \Drupal::configFactory()->get('oe_corporate_site_info.settings')->get('site_owner');
+    /** @var \Drupal\oe_corporate_site_info\SiteInformationInterface $site_information */
+    $site_information = \Drupal::service('oe_corporate_site_info.site_information');
+    if (!$site_information->hasSiteOwner()) {
+      throw new \InvalidArgumentException("No site owner has been set yet.");
+    }
 
-    if ($expected->id() !== $actual) {
-      throw new \Exception("The site owner is set to '{$actual}', while is should be set to '{$expected->id()}'.");
+    $expected = $this->loadEntityByLabel($label);
+    $actual = $site_information->getSiteOwner();
+    if ($expected->id() !== $actual->id()) {
+      throw new \Exception("The site owner is set to '{$actual->id()}', while is should be set to '{$expected->id()}'.");
     }
   }
 
