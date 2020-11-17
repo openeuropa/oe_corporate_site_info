@@ -43,7 +43,7 @@ class CorporateSiteInformationContext extends RawDrupalContext {
    * @Given I set the site owner to :label
    */
   public function setSiteOwner(string $label): void {
-    $entity = $this->loadEntityByLabel($label);
+    $entity = $this->loadSkosConceptByLabel($label);
     $this->configContext->setConfig('oe_corporate_site_info.settings', 'site_owner', $entity->id());
   }
 
@@ -62,7 +62,7 @@ class CorporateSiteInformationContext extends RawDrupalContext {
       throw new \InvalidArgumentException("No site owner has been set yet.");
     }
 
-    $expected = $this->loadEntityByLabel($label);
+    $expected = $this->loadSkosConceptByLabel($label);
     $actual = $site_information->getSiteOwner();
     if ($expected->id() !== $actual->id()) {
       throw new \Exception("The site owner is set to '{$actual->id()}', while is should be set to '{$expected->id()}'.");
@@ -78,7 +78,7 @@ class CorporateSiteInformationContext extends RawDrupalContext {
    * @return \Drupal\rdf_skos\Entity\Concept
    *   SKOS entity object.
    */
-  protected function loadEntityByLabel(string $label): Concept {
+  protected function loadSkosConceptByLabel(string $label): Concept {
     $entities = \Drupal::entityTypeManager()->getStorage('skos_concept')->loadByProperties([
       'pref_label' => $label,
     ]);
