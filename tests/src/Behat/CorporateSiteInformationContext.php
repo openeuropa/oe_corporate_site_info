@@ -53,7 +53,7 @@ class CorporateSiteInformationContext extends RawDrupalContext {
    * @param string $label
    *   Site owner SKOS concept label.
    *
-   * @Then the site owner should be set to :arg1
+   * @Then the site owner should be set to :label
    */
   public function assertSiteOwner(string $label): void {
     /** @var \Drupal\oe_corporate_site_info\SiteInformationInterface $site_information */
