@@ -38,6 +38,7 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
       'concept_schemes' => [
         'http://publications.europa.eu/resource/authority/corporate-body',
       ],
+      'concept_subset' => 'oe_corporate_site_info_corporate_bodies_department_executive_agencies',
       'match_operator' => 'CONTAINS',
       'match_limit' => 10,
     ],
