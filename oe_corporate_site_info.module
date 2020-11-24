@@ -79,7 +79,10 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
     '#description' => t('This is not the writer of the content, but the subject matter expert responsible for keeping this content up to date. <br>When this field is populated, it will provide the default Content owner for all new content on this website. It can be overwritten for every new item.'),
   ];
 
-  $form['#submit'] = ['_oe_corporate_site_info_settings_form_submit'];
+  // SiteInformationForm::submitForm calls the parent ::submitForm,
+  // so we need to add our submit function to the beginning of the list
+  // to give it a chance to execute.
+  array_unshift($form['#submit'], '_oe_corporate_site_info_settings_form_submit');
 }
 
 /**
