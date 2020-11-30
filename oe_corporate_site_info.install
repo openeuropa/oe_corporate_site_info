@@ -7,6 +7,9 @@
 
 declare(strict_types = 1);
 
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+
 /**
  * Implements hook_install().
  */
@@ -17,5 +20,56 @@ function oe_corporate_site_info_install(): void {
     \Drupal::service('rdf_skos.skos_graph_configurator')->addGraphs([
       'oe_corporate_site_info_corporate_body' => 'http://publications.europa.eu/resource/authority/corporate-body',
     ]);
+
+    // Install the newly defined SKOS Concept defined fields.
+    /** @var \Drupal\rdf_skos\SkosEntityDefinitionUpdateManager $update_manager */
+    $update_manager = \Drupal::service('rdf_skos.skos_entity_definition_update_manager');
+    $definitions = [];
+    $definitions['oe_corporate_site_info_corporate_body_classification'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Corporate Bodies Classification'))
+      ->setDescription(t('The corporate body classification.'))
+      ->setSetting('target_type', 'skos_concept')
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+      ->setSetting('handler', 'default')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'entity_reference_label',
+      ])
+      ->setProvider('rdf_skos');
+
+    $installed = $update_manager->installFieldDefinitions('skos_concept', $definitions);
+    \Drupal::logger('oe_corporate_site_info')->info('The following SKOS field definitions have been installed: @definitions.', ['@definitions' => implode(', ', $installed)]);
   }
+
+
+}
+
+/**
+ * Install the newly defined SKOS Concept defined fields.
+ */
+function oe_corporate_site_info_update_8001(&$sandbox) {
+  // Invalidate the container to try to ensure the new service definition gets
+  // picked up.
+  \Drupal::service('kernel')->invalidateContainer();
+  /** @var \Drupal\rdf_skos\SkosEntityDefinitionUpdateManager $update_manager */
+  $update_manager = \Drupal::service('rdf_skos.skos_entity_definition_update_manager');
+  $definitions = [];
+  $definitions['oe_corporate_site_info_corporate_body_classification'] = BaseFieldDefinition::create('entity_reference')
+    ->setLabel(t('Corporate Bodies Classification'))
+    ->setDescription(t('The corporate body classification.'))
+    ->setSetting('target_type', 'skos_concept')
+    ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+    ->setSetting('handler', 'default')
+    ->setDisplayOptions('view', [
+      'label' => 'above',
+      'type' => 'entity_reference_label',
+    ])
+    ->setProvider('rdf_skos');
+
+  $installed = $update_manager->installFieldDefinitions('skos_concept', $definitions);
+  if (!$installed) {
+    return t('No SKOS field definitions had to be updated.');
+  }
+
+  return t('The following SKOS field definitions have been installed: @definitions.', ['@definitions' => implode(', ', $installed)]);
 }
