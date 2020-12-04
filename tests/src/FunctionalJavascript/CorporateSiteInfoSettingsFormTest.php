@@ -48,7 +48,12 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
     $page = $this->getSession()->getPage();
     $assert_session = $this->assertSession();
 
+    // Site owner and Content owners field is required.
+    $page->pressButton('Save configuration');
+    $assert_session->pageTextNotContains('The configuration options have been saved.');
     $page->fillField('Site owner', 'Directorate-General for Agriculture and Rural Development');
+    $page->pressButton('Save configuration');
+    $assert_session->pageTextNotContains('The configuration options have been saved.');
     $page->fillField('content_owners[0][target]', 'Directorate-General for Agriculture and Rural Development');
 
     $add_more_button = $page->findButton('content_owners_add_more');
@@ -86,12 +91,6 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
     $assert_session->fieldValueEquals('content_owners[0][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
     $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');
     $assert_session->fieldValueEquals('content_owners[2][target]', '');
-
-    // Content owners field is required.
-    $page->fillField('content_owners[0][target]', '');
-    $page->fillField('content_owners[1][target]', '');
-    $page->pressButton('Save configuration');
-    $assert_session->pageTextContainsOnce('You have to select at least one entity reference.');
   }
 
 }
