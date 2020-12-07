@@ -50,11 +50,13 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
 
     // Site owner and Content owners field is required.
     $page->pressButton('Save configuration');
-    $assert_session->pageTextNotContains('The configuration options have been saved.');
+    $this->assertTrue($this->getSession()->evaluateScript("return jQuery(document).find('#edit-site-owner:invalid')"));
     $page->fillField('Site owner', 'Directorate-General for Agriculture and Rural Development');
+    $this->assertFalse($this->getSession()->evaluateScript("return jQuery(document).find('#edit-site-owner:invalid')"));
     $page->pressButton('Save configuration');
-    $assert_session->pageTextNotContains('The configuration options have been saved.');
+    $this->assertTrue($this->getSession()->evaluateScript("return jQuery(document).find('#edit-content-owners-0-target:invalid')"));
     $page->fillField('content_owners[0][target]', 'Directorate-General for Agriculture and Rural Development');
+    $this->assertFalse($this->getSession()->evaluateScript("return jQuery(document).find('#edit-content-owners-0-target:invalid')"));
 
     $add_more_button = $page->findButton('content_owners_add_more');
 
