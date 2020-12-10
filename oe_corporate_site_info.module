@@ -61,7 +61,6 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
 
   $form['oe_site_information']['content_owners'] = [
     '#type' => 'multivalue',
-    '#cardinality' => MultiValue::CARDINALITY_UNLIMITED,
     '#title' => t('Default content owner(s)'),
     '#required' => TRUE,
     'target' => [
