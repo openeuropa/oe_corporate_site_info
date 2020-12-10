@@ -66,6 +66,7 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
     '#required' => TRUE,
     'target' => [
       '#type' => 'entity_autocomplete',
+      '#title' => t('Content owner'),
       '#title_display' => 'invisible',
       '#target_type' => 'skos_concept',
       '#selection_handler' => 'default:skos_concept',
@@ -102,13 +103,7 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
 function _oe_corporate_site_info_settings_form_submit(&$form, FormStateInterface $form_state): void {
   $corporate_site_info = \Drupal::configFactory()->getEditable('oe_corporate_site_info.settings');
   $corporate_site_info->set('site_owner', $form_state->getValue('site_owner'));
-  $content_owners = $form_state->getValue('content_owners', []);
-  $content_owner_ids = [];
-  foreach ($content_owners as $content_owner) {
-    if (!empty($content_owner['target'])) {
-      $content_owner_ids[] = $content_owner['target'];
-    }
-  }
+  $content_owner_ids = array_column($form_state->getValue('content_owners', []), 'target');
   $corporate_site_info->set('content_owners', $content_owner_ids);
   $corporate_site_info->save();
 }

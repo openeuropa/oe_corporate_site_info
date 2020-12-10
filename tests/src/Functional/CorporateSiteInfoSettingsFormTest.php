@@ -2,15 +2,15 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\Tests\oe_corporate_site_info\FunctionalJavascript;
+namespace Drupal\Tests\oe_corporate_site_info\Functional;
 
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
+use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\rdf_entity\Traits\RdfDatabaseConnectionTrait;
 
 /**
- * Tests the JavaScript functionality of Corporate site information config form.
+ * Tests the functionality of Corporate site information config form.
  */
-class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
+class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
 
   use RdfDatabaseConnectionTrait;
 
@@ -48,20 +48,19 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
     $page = $this->getSession()->getPage();
     $assert_session = $this->assertSession();
 
-    // Site owner and Content owners field is required.
+    // Site owner and Content owners fields are required.
     $page->pressButton('Save configuration');
-    $this->assertTrue($this->getSession()->evaluateScript("return jQuery(document).find('#edit-site-owner:invalid')"));
+    $this->assertText('Site owner field is required.');
+    $this->assertText('Content owner field is required.');
     $page->fillField('Site owner', 'Directorate-General for Agriculture and Rural Development');
-    $this->assertFalse($this->getSession()->evaluateScript("return jQuery(document).find('#edit-site-owner:invalid')"));
-    $page->pressButton('Save configuration');
-    $this->assertTrue($this->getSession()->evaluateScript("return jQuery(document).find('#edit-content-owners-0-target:invalid')"));
     $page->fillField('content_owners[0][target]', 'Directorate-General for Agriculture and Rural Development');
-    $this->assertFalse($this->getSession()->evaluateScript("return jQuery(document).find('#edit-content-owners-0-target:invalid')"));
+    $page->pressButton('Save configuration');
+    $this->assertNoText('Site owner field is required.');
+    $this->assertNoText('Content owner field is required.');
 
     $add_more_button = $page->findButton('content_owners_add_more');
 
     $add_more_button->click();
-    $assert_session->waitForField('content_owners[1][target]');
     $page->fillField('content_owners[1][target]', 'Directorate-General for Budget');
 
     $page->pressButton('Save configuration');
@@ -73,7 +72,6 @@ class CorporateSiteInfoSettingsFormTest extends WebDriverTestBase {
     $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');
     $assert_session->fieldValueEquals('content_owners[2][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
 
-    $page->pressButton('Show row weights');
     $page->selectFieldOption('content_owners[2][_weight]', -2);
     $page->pressButton('Save configuration');
 
