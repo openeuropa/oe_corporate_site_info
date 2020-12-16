@@ -27,4 +27,20 @@ interface SiteInformationInterface {
    */
   public function getSiteOwner(): ConceptInterface;
 
+  /**
+   * Check whether content owners are set for the site.
+   *
+   * @return bool
+   *   TRUE if set, FALSE if no content owners are set.
+   */
+  public function hasContentOwners(): bool;
+
+  /**
+   * Get current content owner SKOS concept entities.
+   *
+   * @return \Drupal\rdf_skos\Entity\Concept[]
+   *   The current site owner SKOS concept entities.
+   */
+  public function getContentOwners(): array;
+
 }
