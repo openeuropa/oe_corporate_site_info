@@ -5,14 +5,14 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_corporate_site_info\Functional;
 
 use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\rdf_entity\Traits\RdfDatabaseConnectionTrait;
+use Drupal\Tests\sparql_entity_storage\Traits\SparqlConnectionTrait;
 
 /**
  * Tests the functionality of Corporate site information config form.
  */
 class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
 
-  use RdfDatabaseConnectionTrait;
+  use SparqlConnectionTrait;
 
   /**
    * {@inheritdoc}
