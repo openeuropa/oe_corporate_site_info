@@ -8,6 +8,6 @@ Feature: Corporate information
     Given I set the site owner to "Directorate-General for Informatics"
     Then the site owner should be set to "Directorate-General for Informatics"
 
-  Scenario: Set and assert content owner.
-    Given I set the content owner to "Directorate-General for Informatics"
-    Then the content owner should be set to "Directorate-General for Informatics"
+  Scenario: Set and assert the site default content owner.
+    Given I set the site default content owner to "Directorate-General for Informatics"
+    Then the site default content owner should be set to "Directorate-General for Informatics"

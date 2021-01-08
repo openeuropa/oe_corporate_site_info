@@ -70,35 +70,35 @@ class CorporateSiteInformationContext extends RawDrupalContext {
   }
 
   /**
-   * Set content owner configuration.
+   * Set site default content owner configuration.
    *
    * @param string $label
    *   Content owner SKOS concept label.
    *
-   * @Given I set the content owner to :label
+   * @Given I set the site default content owner to :label
    */
-  public function setContentOwner(string $label): void {
+  public function setSiteDefaultContentOwner(string $label): void {
     $entity = $this->loadSkosConceptByLabel($label);
     $this->configContext->setConfig('oe_corporate_site_info.settings', 'content_owners', [$entity->id()]);
   }
 
   /**
-   * Assert content owner.
+   * Assert the site default content owner.
    *
    * @param string $label
    *   Content owner SKOS concept label.
    *
-   * @Then the content owner should be set to :label
+   * @Then the site default content owner should be set to :label
    */
-  public function assertContentOwner(string $label): void {
+  public function assertSiteDefaultContentOwner(string $label): void {
     /** @var \Drupal\oe_corporate_site_info\SiteInformationInterface $site_information */
     $site_information = \Drupal::service('oe_corporate_site_info.site_information');
-    if (!$site_information->hasContentOwners()) {
+    if (!$site_information->hasDefaultContentOwners()) {
       throw new \InvalidArgumentException("No content owners have been set yet.");
     }
 
     $expected = $this->loadSkosConceptByLabel($label);
-    $owners = $site_information->getContentOwners();
+    $owners = $site_information->getDefaultContentOwners();
     foreach ($owners as $owner) {
       if ($expected->id() === $owner->id()) {
         return;

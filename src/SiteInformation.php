@@ -63,14 +63,14 @@ class SiteInformation implements SiteInformationInterface {
   /**
    * {@inheritdoc}
    */
-  public function hasContentOwners(): bool {
+  public function hasDefaultContentOwners(): bool {
     return (bool) $this->configFactory->get(self::CONFIG_NAME)->get('content_owners');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getContentOwners(): array {
+  public function getDefaultContentOwners(): array {
     $content_owner_ids = $this->configFactory->get(self::CONFIG_NAME)->get('content_owners');
 
     if (empty($content_owner_ids)) {

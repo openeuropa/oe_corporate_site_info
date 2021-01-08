@@ -28,19 +28,19 @@ interface SiteInformationInterface {
   public function getSiteOwner(): ConceptInterface;
 
   /**
-   * Check whether content owners are set for the site.
+   * Check whether default content owners are set for the site.
    *
    * @return bool
    *   TRUE if set, FALSE if no content owners are set.
    */
-  public function hasContentOwners(): bool;
+  public function hasDefaultContentOwners(): bool;
 
   /**
-   * Get current content owner SKOS concept entities.
+   * Get the default content owners set for the site.
    *
    * @return \Drupal\rdf_skos\Entity\Concept[]
    *   The current site owner SKOS concept entities.
    */
-  public function getContentOwners(): array;
+  public function getDefaultContentOwners(): array;
 
 }
