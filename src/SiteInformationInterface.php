@@ -38,7 +38,7 @@ interface SiteInformationInterface {
   /**
    * Get the default content owners set for the site.
    *
-   * @return \Drupal\rdf_skos\Entity\Concept[]
+   * @return \Drupal\rdf_skos\Entity\ConceptInterface[]
    *   The current site owner SKOS concept entities.
    */
   public function getDefaultContentOwners(): array;
