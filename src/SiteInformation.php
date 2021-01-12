@@ -60,4 +60,24 @@ class SiteInformation implements SiteInformationInterface {
     return $this->entityStorage->load($id);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function hasDefaultContentOwners(): bool {
+    return (bool) $this->configFactory->get(self::CONFIG_NAME)->get('content_owners');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDefaultContentOwners(): array {
+    $content_owner_ids = $this->configFactory->get(self::CONFIG_NAME)->get('content_owners');
+
+    if (empty($content_owner_ids)) {
+      return [];
+    }
+
+    return $this->entityStorage->loadMultiple($content_owner_ids);
+  }
+
 }
