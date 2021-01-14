@@ -1,11 +1,22 @@
 # Changelog
 
+## [0.2.0](https://github.com/openeuropa/oe_corporate_site_info/tree/0.2.0) (2021-01-14)
+
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/0.1.0...0.2.0)
+
+**Merged pull requests:**
+
+- EWPP-529: Replace scaffold library. [\#11](https://github.com/openeuropa/oe_corporate_site_info/pull/11) ([sergepavle](https://github.com/sergepavle))
+- EWPP-615: Add Content Owners related methods. [\#9](https://github.com/openeuropa/oe_corporate_site_info/pull/9) ([georgebaev](https://github.com/georgebaev))
+- EWPP-546: Use multivalue form element instead of implemented in component. [\#8](https://github.com/openeuropa/oe_corporate_site_info/pull/8) ([sergepavle](https://github.com/sergepavle))
+
 ## [0.1.0](https://github.com/openeuropa/oe_corporate_site_info/tree/0.1.0) (2020-12-03)
 
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/02f84828e4fae1bfc2b3ff69b419a99df0cc2932...0.1.0)
 
 **Merged pull requests:**
 
+- EWPP-000: Update CHANGELOG.md for release 0.1.0. [\#7](https://github.com/openeuropa/oe_corporate_site_info/pull/7) ([sergepavle](https://github.com/sergepavle))
 - EWPP-564: Add install of created Skos concept fields. [\#6](https://github.com/openeuropa/oe_corporate_site_info/pull/6) ([sergepavle](https://github.com/sergepavle))
 - EWPP-131: Fix broken settings submit. [\#5](https://github.com/openeuropa/oe_corporate_site_info/pull/5) ([drishu](https://github.com/drishu))
 - EWPP-516: Update docker images. [\#4](https://github.com/openeuropa/oe_corporate_site_info/pull/4) ([22Alexandra](https://github.com/22Alexandra))
