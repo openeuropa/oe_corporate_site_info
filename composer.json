@@ -9,7 +9,7 @@
         "drupal/core": "^8.8",
         "drupal/multivalue_form_element": "^1.0@beta",
         "easyrdf/easyrdf": "1.0.0 as 0.9.1",
-        "openeuropa/rdf_skos": "dev-OPENEUROPA-3048",
+        "openeuropa/rdf_skos": "~1.0",
         "php": ">=7.2"
     },
     "require-dev": {
