@@ -7,9 +7,9 @@ namespace Drupal\oe_corporate_site_info\Plugin\ConceptSubset;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\rdf_entity\RdfFieldHandlerInterface;
 use Drupal\rdf_skos\ConceptSubsetPluginBase;
 use Drupal\rdf_skos\Plugin\PredicateMapperInterface;
+use Drupal\sparql_entity_storage\SparqlEntityStorageFieldHandlerInterface;
 
 /**
  * Creates a subset of the corporate bodies vocabulary.
@@ -51,7 +51,7 @@ class DepartmentsAgencies extends ConceptSubsetPluginBase implements PredicateMa
     $mapping['oe_corporate_site_info_corporate_body_classification'] = [
       'column' => 'target_id',
       'predicate' => ['http://purl.org/dc/terms/type'],
-      'format' => RdfFieldHandlerInterface::RESOURCE,
+      'format' => SparqlEntityStorageFieldHandlerInterface::RESOURCE,
     ];
 
     return $mapping;
