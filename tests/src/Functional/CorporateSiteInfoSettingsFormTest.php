@@ -53,7 +53,7 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     $this->assertText('Site owner field is required.');
     $this->assertText('Content owner field is required.');
     $page->fillField('Site owner', 'Directorate-General for Agriculture and Rural Development');
-    $page->fillField('content_owners[0][target]', 'Directorate-General for Agriculture and Rural Development');
+    $page->fillField('content_owners[0][target]', 'Audit Board of the European Communities');
     $page->pressButton('Save configuration');
     $this->assertNoText('Site owner field is required.');
     $this->assertNoText('Content owner field is required.');
@@ -68,7 +68,7 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     $page->pressButton('Save configuration');
 
     $assert_session->fieldValueEquals('Site owner', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
-    $assert_session->fieldValueEquals('content_owners[0][target]', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
+    $assert_session->fieldValueEquals('content_owners[0][target]', 'Audit Board of the European Communities (http://publications.europa.eu/resource/authority/corporate-body/ABEC)');
     $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');
     $assert_session->fieldValueEquals('content_owners[2][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
 
@@ -77,17 +77,17 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
 
     $assert_session->fieldValueEquals('Site owner', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
     $assert_session->fieldValueEquals('content_owners[0][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
-    $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
+    $assert_session->fieldValueEquals('content_owners[1][target]', 'Audit Board of the European Communities (http://publications.europa.eu/resource/authority/corporate-body/ABEC)');
     $assert_session->fieldValueEquals('content_owners[2][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');
 
     $page->fillField('Site owner', 'invalid skos term');
     $page->fillField('content_owners[1][target]', '');
     $page->pressButton('Save configuration');
     $assert_session->pageTextContainsOnce('There are no entities matching "invalid skos term".');
-    $page->fillField('Site owner', 'Directorate-General for Agriculture and Rural Development');
+    $page->fillField('Site owner', 'European Patent Office');
 
     $page->pressButton('Save configuration');
-    $assert_session->fieldValueEquals('Site owner', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
+    $assert_session->fieldValueEquals('Site owner', 'European Patent Office (http://publications.europa.eu/resource/authority/corporate-body/EPOFF)');
     $assert_session->fieldValueEquals('content_owners[0][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
     $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');
     $assert_session->fieldValueEquals('content_owners[2][target]', '');
