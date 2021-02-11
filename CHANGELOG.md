@@ -1,11 +1,21 @@
 # Changelog
 
+## [1.0.0-alpha1](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha1) (2021-02-09)
+
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/0.2.0...1.0.0-alpha1)
+
+**Merged pull requests:**
+
+- EWPP-726: Fix corporate body graph key. [\#13](https://github.com/openeuropa/oe_corporate_site_info/pull/13) ([nagyad](https://github.com/nagyad))
+- EWPP-109: Use sparql storage branch. [\#10](https://github.com/openeuropa/oe_corporate_site_info/pull/10) ([imanoleguskiza](https://github.com/imanoleguskiza))
+
 ## [0.2.0](https://github.com/openeuropa/oe_corporate_site_info/tree/0.2.0) (2021-01-14)
 
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/0.1.0...0.2.0)
 
 **Merged pull requests:**
 
+- Release-0.2.0: Update changelog. [\#12](https://github.com/openeuropa/oe_corporate_site_info/pull/12) ([nagyad](https://github.com/nagyad))
 - EWPP-529: Replace scaffold library. [\#11](https://github.com/openeuropa/oe_corporate_site_info/pull/11) ([sergepavle](https://github.com/sergepavle))
 - EWPP-615: Add Content Owners related methods. [\#9](https://github.com/openeuropa/oe_corporate_site_info/pull/9) ([georgebaev](https://github.com/georgebaev))
 - EWPP-546: Use multivalue form element instead of implemented in component. [\#8](https://github.com/openeuropa/oe_corporate_site_info/pull/8) ([sergepavle](https://github.com/sergepavle))
