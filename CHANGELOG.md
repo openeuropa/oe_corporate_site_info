@@ -1,11 +1,20 @@
 # Changelog
 
+## [0.3.1](https://github.com/openeuropa/oe_corporate_site_info/tree/0.3.1) (2021-03-12)
+
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/0.3.0...0.3.1)
+
+**Merged pull requests:**
+
+- EWPP-743: Remove corporate body restriction for content owner and site owner field. [\#18](https://github.com/openeuropa/oe_corporate_site_info/pull/18) ([imanoleguskiza](https://github.com/imanoleguskiza))
+
 ## [0.3.0](https://github.com/openeuropa/oe_corporate_site_info/tree/0.3.0) (2021-03-11)
 
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/0.2.0...0.3.0)
 
 **Merged pull requests:**
 
+- Release-0.3.0: Update changelog. [\#17](https://github.com/openeuropa/oe_corporate_site_info/pull/17) ([nagyad](https://github.com/nagyad))
 - EWPP-726: Fix corporate body graph key. [\#13](https://github.com/openeuropa/oe_corporate_site_info/pull/13) ([nagyad](https://github.com/nagyad))
 
 ## [0.2.0](https://github.com/openeuropa/oe_corporate_site_info/tree/0.2.0) (2021-01-14)
