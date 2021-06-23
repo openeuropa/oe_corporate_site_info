@@ -15,14 +15,15 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 /**
  * Implements hook_install().
  */
-function oe_corporate_site_info_install(): void {
+function oe_corporate_site_info_install($is_syncing): void {
   // Configure the RDF SKOS graphs.
-  // @TODO Update the following conditional expression and update the function's signature with the usage of $is_syncing beginning from core version 8.9.
-  if (!\Drupal::service('config.installer')->isSyncing()) {
-    \Drupal::service('rdf_skos.skos_graph_configurator')->addGraphs([
-      'corporate_body' => 'http://publications.europa.eu/resource/authority/corporate-body',
-    ]);
+  if ($is_syncing) {
+    return;
   }
+
+  \Drupal::service('rdf_skos.skos_graph_configurator')->addGraphs([
+    'corporate_body' => 'http://publications.europa.eu/resource/authority/corporate-body',
+  ]);
 
   // Install the newly defined SKOS Concept defined fields.
   $manager = \Drupal::entityDefinitionUpdateManager();
