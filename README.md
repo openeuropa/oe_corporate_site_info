@@ -9,7 +9,7 @@ These are directly made available in the dependent RDF triple store.
 
 This depends on the following software:
 
-* [PHP >=7.23](http://php.net/)
+* [PHP >=7.3](http://php.net/)
 * Virtuoso (or equivalent) triple store which contains the RDF representations of the following Publications Office (OP)
   vocabularies: Corporate Bodies, Target Audiences, Organisation Types, Resource Types, Eurovoc
 
@@ -87,6 +87,18 @@ composer install
 A post command hook (`drupal:site-setup`) is triggered automatically after `composer install`.
 It will make sure that the necessary symlinks are properly setup in the development site.
 It will also perform token substitution in development configuration files such as `behat.yml.dist`.
+
+**Please note:** project files and directories are symlinked within the test site by using the
+[OpenEuropa Task Runner's Drupal project symlink](https://github.com/openeuropa/task-runner-drupal-project-symlink) command.
+
+If you add a new file or directory in the root of the project, you need to re-run `drupal:site-setup` in order to make
+sure they are be correctly symlinked.
+
+If you don't want to re-run a full site setup for that, you can simply run:
+
+```
+$ ./vendor/bin/run drupal:symlink-project
+```
 
 * Install test site by running:
 

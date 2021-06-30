@@ -17,6 +17,11 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $modules = [
     'oe_corporate_site_info',
   ];
@@ -24,7 +29,7 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->setUpSparql();
     $this->container->get('config.factory')->getEditable('system.site')->set('page.front', '/user')->save();
@@ -50,13 +55,13 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
 
     // Site owner and Content owners fields are required.
     $page->pressButton('Save configuration');
-    $this->assertText('Site owner field is required.');
-    $this->assertText('Content owner field is required.');
+    $this->assertSession()->pageTextContains('Site owner field is required.');
+    $this->assertSession()->pageTextContains('Content owner field is required.');
     $page->fillField('Site owner', 'Directorate-General for Agriculture and Rural Development');
     $page->fillField('content_owners[0][target]', 'Audit Board of the European Communities');
     $page->pressButton('Save configuration');
-    $this->assertNoText('Site owner field is required.');
-    $this->assertNoText('Content owner field is required.');
+    $this->assertSession()->pageTextNotContains('Site owner field is required.');
+    $this->assertSession()->pageTextNotContains('Content owner field is required.');
 
     $add_more_button = $page->findButton('content_owners_add_more');
 
