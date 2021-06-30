@@ -16,15 +16,6 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  * Implements hook_install().
  */
 function oe_corporate_site_info_install($is_syncing): void {
-  // Configure the RDF SKOS graphs.
-  if ($is_syncing) {
-    return;
-  }
-
-  \Drupal::service('rdf_skos.skos_graph_configurator')->addGraphs([
-    'corporate_body' => 'http://publications.europa.eu/resource/authority/corporate-body',
-  ]);
-
   // Install the newly defined SKOS Concept defined fields.
   $manager = \Drupal::entityDefinitionUpdateManager();
   $definition = BaseFieldDefinition::create('entity_reference')
@@ -40,6 +31,15 @@ function oe_corporate_site_info_install($is_syncing): void {
 
   $manager->installFieldStorageDefinition('oe_corporate_site_info_corporate_body_classification', 'skos_concept', 'rdf_skos', $definition);
   \Drupal::logger('oe_corporate_site_info')->info('The following SKOS field definition has been installed: @definition.', ['@definition' => 'oe_corporate_site_info_corporate_body_classification']);
+
+  // Configure the RDF SKOS graphs.
+  if ($is_syncing) {
+    return;
+  }
+
+  \Drupal::service('rdf_skos.skos_graph_configurator')->addGraphs([
+    'corporate_body' => 'http://publications.europa.eu/resource/authority/corporate-body',
+  ]);
 }
 
 /**
