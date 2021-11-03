@@ -88,7 +88,9 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     $page->fillField('Site owner', 'invalid skos term');
     $page->fillField('content_owners[1][target]', '');
     $page->pressButton('Save configuration');
-    $assert_session->pageTextContainsOnce('There are no entities matching "invalid skos term".');
+    // @todo remove this condition once 9.2 is minimum version.
+    $expected_error = version_compare(\Drupal::VERSION, '9.2', '>=') ? 'There are no skos concept entities matching "invalid skos term".' : 'There are no entities matching "invalid skos term".';
+    $assert_session->pageTextContainsOnce($expected_error);
     $page->fillField('Site owner', 'European Patent Office');
 
     $page->pressButton('Save configuration');
