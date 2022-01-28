@@ -9,7 +9,6 @@
         "php": ">=7.4",
         "drupal/core": "^9.2",
         "drupal/multivalue_form_element": "^1.0@beta",
-        "easyrdf/easyrdf": "1.0.0 as 0.9.1",
         "openeuropa/rdf_skos": "~1.0"
     },
     "require-dev": {
@@ -67,6 +66,7 @@
         "allow-plugins": {
             "composer/installers": true,
             "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
             "phpro/grumphp": true
         }
