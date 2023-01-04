@@ -6,7 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "drupal/core": "^9.3",
         "drupal/multivalue_form_element": "^1.0@beta",
         "openeuropa/rdf_skos": "~1.0"

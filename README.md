@@ -9,7 +9,7 @@ These are directly made available in the dependent RDF triple store.
 
 This depends on the following software:
 
-* [PHP >=7.3](http://php.net/)
+* [PHP >=8.0](http://php.net/)
 * Virtuoso (or equivalent) triple store which contains the RDF representations of the following Publications Office (OP)
   vocabularies: Corporate Bodies, Target Audiences, Organisation Types, Resource Types, Eurovoc
 
