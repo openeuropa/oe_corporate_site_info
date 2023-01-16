@@ -10,7 +10,7 @@ default:
         - Drupal\Tests\oe_corporate_site_info\Behat\CorporateSiteInformationContext
   extensions:
     Drupal\MinkExtension:
-      goutte: ~
+      browserkit_http: ~
       ajax_timeout: 10
       javascript_session: selenium2
       browser_name: "${selenium.browser}"
