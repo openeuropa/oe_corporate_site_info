@@ -1,16 +1,22 @@
-# Changelog
+# Change Log
+
+## [1.0.0-alpha7](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha7) (2023-04-05)
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha6...1.0.0-alpha7)
+
+**Merged pull requests:**
+
+- EWPP-3004: Drupal 10 compatibility. [\#32](https://github.com/openeuropa/oe_corporate_site_info/pull/32) ([brummbar](https://github.com/brummbar))
 
 ## [1.0.0-alpha6](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha6) (2023-03-13)
-
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha5...1.0.0-alpha6)
 
 **Merged pull requests:**
 
+- Release-1.0.0-alpha6: Update changelog and dependencies. [\#31](https://github.com/openeuropa/oe_corporate_site_info/pull/31) ([nagyad](https://github.com/nagyad))
 - Update rdf\_skos version to alpha9. [\#30](https://github.com/openeuropa/oe_corporate_site_info/pull/30) ([nagyad](https://github.com/nagyad))
 - OEL-2115: Update to PHP 8.1 [\#29](https://github.com/openeuropa/oe_corporate_site_info/pull/29) ([brummbar](https://github.com/brummbar))
 
 ## [1.0.0-alpha5](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha5) (2022-08-02)
-
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha4...1.0.0-alpha5)
 
 **Merged pull requests:**
