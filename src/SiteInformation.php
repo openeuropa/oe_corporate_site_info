@@ -80,4 +80,23 @@ class SiteInformation implements SiteInformationInterface {
     return $this->entityStorage->loadMultiple($content_owner_ids);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function hasAccessibilityLink(): bool {
+    return (bool) $this->configFactory->get(self::CONFIG_NAME)->get('accessibility');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAccessibilityLink(): string {
+    $accessibility_link = $this->configFactory->get(self::CONFIG_NAME)->get('accessibility');
+    if (empty($accessibility_link)) {
+      return '';
+    }
+
+    return $accessibility_link;
+  }
+
 }

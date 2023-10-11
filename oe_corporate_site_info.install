@@ -7,9 +7,9 @@
 
 declare(strict_types = 1);
 
+use Drupal\Core\Entity\EntityDefinitionUpdateManager;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\Core\Entity\EntityDefinitionUpdateManager;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**

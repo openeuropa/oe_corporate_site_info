@@ -43,4 +43,20 @@ interface SiteInformationInterface {
    */
   public function getDefaultContentOwners(): array;
 
+  /**
+   * Check whether an accessibility link is set for the site.
+   *
+   * @return bool
+   *   TRUE if set, FALSE if it is not.
+   */
+  public function hasAccessibilityLink(): bool;
+
+  /**
+   * Get the accessibility link set for the site.
+   *
+   * @return string
+   *   The accessibility link.
+   */
+  public function getAccessibilityLink(): string;
+
 }

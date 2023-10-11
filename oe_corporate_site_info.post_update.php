@@ -45,3 +45,13 @@ function oe_corporate_site_info_post_update_00002(): void {
     'corporate_body' => 'http://publications.europa.eu/resource/authority/corporate-body',
   ]);
 }
+
+/**
+ * Install required Link module for the Accessibility statement field.
+ */
+function oe_corporate_site_info_post_update_00003(): void {
+  if (\Drupal::service('module_handler')->moduleExists('link')) {
+    return;
+  }
+  \Drupal::service('module_installer')->install(['link']);
+}
