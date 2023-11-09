@@ -11,3 +11,7 @@ oe_corporate_site_info.settings:
       sequence:
         label: 'SKOS entity ID'
         type: string
+    # Use label type, so it gets exposed to the translation system.
+    accessibility:
+      type: label
+      label: 'Accessibility statement'
