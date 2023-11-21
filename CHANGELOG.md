@@ -1,13 +1,24 @@
-# Change Log
+# Changelog
 
-## [1.0.0-alpha7](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha7) (2023-04-05)
+## [1.0.0-alpha8](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha8) (2023-11-21)
+
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha7...1.0.0-alpha8)
+
+**Merged pull requests:**
+
+- EWPP-3647: Add Accessibility statement field. [\#34](https://github.com/openeuropa/oe_corporate_site_info/pull/34) ([22Alexandra](https://github.com/22Alexandra))
+
+## [1.0.0-alpha7](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha7) (2023-04-06)
+
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha6...1.0.0-alpha7)
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.0.0-alpha7. [\#33](https://github.com/openeuropa/oe_corporate_site_info/pull/33) ([brummbar](https://github.com/brummbar))
 - EWPP-3004: Drupal 10 compatibility. [\#32](https://github.com/openeuropa/oe_corporate_site_info/pull/32) ([brummbar](https://github.com/brummbar))
 
 ## [1.0.0-alpha6](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha6) (2023-03-13)
+
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha5...1.0.0-alpha6)
 
 **Merged pull requests:**
