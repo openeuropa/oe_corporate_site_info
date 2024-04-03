@@ -1,11 +1,20 @@
 # Changelog
 
+## [1.0.0](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0) (2024-04-03)
+
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha8...1.0.0)
+
+**Merged pull requests:**
+
+- EWPP-4238: Support D10.2 and drop D9. [\#36](https://github.com/openeuropa/oe_corporate_site_info/pull/36) ([nagyad](https://github.com/nagyad))
+
 ## [1.0.0-alpha8](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha8) (2023-11-21)
 
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha7...1.0.0-alpha8)
 
 **Merged pull requests:**
 
+- Prepare release 1.0.0-alpha8 [\#35](https://github.com/openeuropa/oe_corporate_site_info/pull/35) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EWPP-3647: Add Accessibility statement field. [\#34](https://github.com/openeuropa/oe_corporate_site_info/pull/34) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.0.0-alpha7](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha7) (2023-04-06)
@@ -28,6 +37,7 @@
 - OEL-2115: Update to PHP 8.1 [\#29](https://github.com/openeuropa/oe_corporate_site_info/pull/29) ([brummbar](https://github.com/brummbar))
 
 ## [1.0.0-alpha5](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha5) (2022-08-02)
+
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha4...1.0.0-alpha5)
 
 **Merged pull requests:**
@@ -57,7 +67,7 @@
 
 ## [1.0.0-alpha2](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha2) (2021-03-22)
 
-[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha1...1.0.0-alpha2)
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/0.3.1...1.0.0-alpha2)
 
 **Merged pull requests:**
 
