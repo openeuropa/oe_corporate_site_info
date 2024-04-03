@@ -5,7 +5,7 @@
  * OpenEuropa Corporate Site Information installation file.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Entity\EntityDefinitionUpdateManager;
 use Drupal\Core\Field\BaseFieldDefinition;

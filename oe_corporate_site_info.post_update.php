@@ -5,7 +5,7 @@
  * OpenEuropa Corporate Site Information post updates.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Install Multi-value form element contrib module.
