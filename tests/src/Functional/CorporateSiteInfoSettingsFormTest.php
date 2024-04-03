@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Drupal\Tests\oe_corporate_site_info\Functional;
 
@@ -93,7 +93,7 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     $assert_session->fieldValueEquals('content_owners[2][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
 
     $page->fillField('Accessibility statement', 'https://example.com');
-    $page->selectFieldOption('content_owners[2][_weight]', -2);
+    $page->selectFieldOption('content_owners[2][_weight]', '-2');
     $page->pressButton('Save configuration');
 
     $assert_session->fieldValueEquals('Accessibility statement', 'https://example.com');
