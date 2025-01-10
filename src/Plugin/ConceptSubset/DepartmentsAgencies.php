@@ -30,7 +30,7 @@ class DepartmentsAgencies extends ConceptSubsetPluginBase implements PredicateMa
   /**
    * {@inheritdoc}
    */
-  public function alterQuery(QueryInterface $query, $match_operator, array $concept_schemes = [], string $match = NULL): void {
+  public function alterQuery(QueryInterface $query, $match_operator, array $concept_schemes = [], ?string $match = NULL): void {
     $types = [
       // Directorate-general.
       'http://publications.europa.eu/resource/authority/corporate-body-classification/DIR_GEN',
