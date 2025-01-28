@@ -1,15 +1,22 @@
-# Changelog
+# Change Log
+
+## [1.1.0](https://github.com/openeuropa/oe_corporate_site_info/tree/1.1.0) (2025-01-28)
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0...1.1.0)
+
+**Merged pull requests:**
+
+- EWPP-4991: Ensure PHP8.3 compatibility. [\#39](https://github.com/openeuropa/oe_corporate_site_info/pull/39) ([nagyad](https://github.com/nagyad))
+- OEL-3039: Update to Drupal 10.3 [\#38](https://github.com/openeuropa/oe_corporate_site_info/pull/38) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 
 ## [1.0.0](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0) (2024-04-03)
-
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha8...1.0.0)
 
 **Merged pull requests:**
 
+- Release-1.0.0: Update changelog. [\#37](https://github.com/openeuropa/oe_corporate_site_info/pull/37) ([nagyad](https://github.com/nagyad))
 - EWPP-4238: Support D10.2 and drop D9. [\#36](https://github.com/openeuropa/oe_corporate_site_info/pull/36) ([nagyad](https://github.com/nagyad))
 
 ## [1.0.0-alpha8](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha8) (2023-11-21)
-
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha7...1.0.0-alpha8)
 
 **Merged pull requests:**
@@ -18,7 +25,6 @@
 - EWPP-3647: Add Accessibility statement field. [\#34](https://github.com/openeuropa/oe_corporate_site_info/pull/34) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.0.0-alpha7](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha7) (2023-04-06)
-
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha6...1.0.0-alpha7)
 
 **Merged pull requests:**
@@ -27,7 +33,6 @@
 - EWPP-3004: Drupal 10 compatibility. [\#32](https://github.com/openeuropa/oe_corporate_site_info/pull/32) ([brummbar](https://github.com/brummbar))
 
 ## [1.0.0-alpha6](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha6) (2023-03-13)
-
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha5...1.0.0-alpha6)
 
 **Merged pull requests:**
@@ -37,7 +42,6 @@
 - OEL-2115: Update to PHP 8.1 [\#29](https://github.com/openeuropa/oe_corporate_site_info/pull/29) ([brummbar](https://github.com/brummbar))
 
 ## [1.0.0-alpha5](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha5) (2022-08-02)
-
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha4...1.0.0-alpha5)
 
 **Merged pull requests:**
@@ -46,7 +50,6 @@
 - EWPP-2358: Drupal 9.4 support. [\#27](https://github.com/openeuropa/oe_corporate_site_info/pull/27) ([yenyasinn](https://github.com/yenyasinn))
 
 ## [1.0.0-alpha4](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha4) (2022-02-10)
-
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha3...1.0.0-alpha4)
 
 **Merged pull requests:**
@@ -56,7 +59,6 @@
 - EWPP-1706: Fixing test assertion. [\#24](https://github.com/openeuropa/oe_corporate_site_info/pull/24) ([upchuk](https://github.com/upchuk))
 
 ## [1.0.0-alpha3](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha3) (2021-06-30)
-
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.0.0-alpha2...1.0.0-alpha3)
 
 **Merged pull requests:**
@@ -66,7 +68,6 @@
 - EWPP-721: Update xdebug configuration. [\#14](https://github.com/openeuropa/oe_corporate_site_info/pull/14) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.0.0-alpha2](https://github.com/openeuropa/oe_corporate_site_info/tree/1.0.0-alpha2) (2021-03-22)
-
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/0.3.1...1.0.0-alpha2)
 
 **Merged pull requests:**
