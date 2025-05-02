@@ -1,10 +1,18 @@
 # Change Log
 
+## [1.2.1](https://github.com/openeuropa/oe_corporate_site_info/tree/1.2.1) (2025-05-02)
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.2.0...1.2.1)
+
+**Merged pull requests:**
+
+- EWPP-5461: Update sparql image in docker-compose.yml and for drone.yml. [\#43](https://github.com/openeuropa/oe_corporate_site_info/pull/43) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.2.0](https://github.com/openeuropa/oe_corporate_site_info/tree/1.2.0) (2025-03-17)
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.1.0...1.2.0)
 
 **Merged pull requests:**
 
+- Release-1.2.0: Update changelog. [\#42](https://github.com/openeuropa/oe_corporate_site_info/pull/42) ([nagyad](https://github.com/nagyad))
 - EWPP-4635: Update to Drupal 11. [\#41](https://github.com/openeuropa/oe_corporate_site_info/pull/41) ([gorsky87](https://github.com/gorsky87))
 
 ## [1.1.0](https://github.com/openeuropa/oe_corporate_site_info/tree/1.1.0) (2025-01-28)
