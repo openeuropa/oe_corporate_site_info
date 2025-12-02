@@ -44,34 +44,42 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
     '#open' => TRUE,
   ];
 
-  $site_owner = $corporate_site_info->get('site_owner') ?? NULL;
-  $site_owner_entity = NULL;
-  if ($site_owner) {
-    $site_owner_entity = $skos_concept_storage->load($site_owner);
+  $site_owner_ids = $corporate_site_info->get('site_owners') ?? [];
+  $site_owners_entities = [];
+  $site_owners = $skos_concept_storage->loadMultiple($site_owner_ids);
+  foreach ($site_owners as $skos_entity) {
+    if ($skos_entity instanceof ConceptInterface) {
+      $site_owners_entities[] = $skos_entity;
+    }
   }
 
-  $form['oe_site_information']['site_owner'] = [
-    '#title' => t('Site owner'),
-    '#type' => 'entity_autocomplete',
-    '#target_type' => 'skos_concept',
-    '#selection_handler' => 'default:skos_concept',
-    '#selection_settings' => [
-      'concept_schemes' => [
-        'http://publications.europa.eu/resource/authority/corporate-body',
-      ],
-      'match_operator' => 'CONTAINS',
-      'match_limit' => 10,
-    ],
-    '#maxlength' => 1024,
-    '#default_value' => $site_owner_entity,
+  $form['oe_site_information']['site_owners'] = [
+    '#type' => 'multivalue',
+    '#title' => t('Site owner(s)'),
     '#required' => TRUE,
-    '#size' => 60,
-    '#placeholder' => '',
+    'target' => [
+      '#type' => 'entity_autocomplete',
+      '#title' => t('Site owner'),
+      '#title_display' => 'invisible',
+      '#target_type' => 'skos_concept',
+      '#selection_handler' => 'default:skos_concept',
+      '#selection_settings' => [
+        'concept_schemes' => [
+          'http://publications.europa.eu/resource/authority/corporate-body',
+        ],
+        'match_operator' => 'CONTAINS',
+        'match_limit' => 10,
+      ],
+      '#maxlength' => 1024,
+      '#size' => 60,
+      '#placeholder' => '',
+    ],
+    '#default_value' => $site_owners_entities,
   ];
 
-  $content_owner_ids = $corporate_site_info->get('content_owners') ?? [];
+  $site_owner_ids = $corporate_site_info->get('content_owners') ?? [];
   $content_owners_entities = [];
-  foreach ($content_owner_ids as $key => $content_owner_id) {
+  foreach ($site_owner_ids as $key => $content_owner_id) {
     $skos_entity = $skos_concept_storage->load($content_owner_id);
     if ($skos_entity instanceof ConceptInterface) {
       $content_owners_entities[] = $skos_entity;
@@ -173,7 +181,8 @@ function _oe_corporate_site_info_get_privacy_default_value(string $uri): string 
  */
 function _oe_corporate_site_info_settings_form_submit(array &$form, FormStateInterface $form_state): void {
   $corporate_site_info = \Drupal::configFactory()->getEditable('oe_corporate_site_info.settings');
-  $corporate_site_info->set('site_owner', $form_state->getValue('site_owner'));
+  $site_owner_ids = array_column($form_state->getValue('site_owners', []), 'target');
+  $corporate_site_info->set('site_owners', $site_owner_ids);
   $content_owner_ids = array_column($form_state->getValue('content_owners', []), 'target');
   $corporate_site_info->set('content_owners', $content_owner_ids);
   $corporate_site_info->set('accessibility', $form_state->getValue('accessibility'));

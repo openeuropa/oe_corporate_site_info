@@ -70,34 +70,43 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     $this->assertSession()->pageTextContains('Site owner field is required.');
     $this->assertSession()->pageTextContains('Content owner field is required.');
     $page->fillField('Accessibility statement', '<front>');
-    $page->fillField('Site owner', 'Directorate-General for Agriculture and Rural Development');
+    $page->fillField('site_owners[0][target]', 'Directorate-General for Agriculture and Rural Development');
     $page->fillField('content_owners[0][target]', 'Audit Board of the European Communities');
     $page->pressButton('Save configuration');
     $this->assertSession()->pageTextNotContains('Accessibility statement field is required.');
     $this->assertSession()->pageTextNotContains('Site owner field is required.');
     $this->assertSession()->pageTextNotContains('Content owner field is required.');
 
-    $add_more_button = $page->findButton('content_owners_add_more');
+    $add_more_button = $page->findButton('site_owners_add_more');
+    $add_more_button->click();
+    $page->fillField('site_owners[1][target]', 'European Automobile Manufacturers Association');
 
+    $add_more_button = $page->findButton('content_owners_add_more');
     $add_more_button->click();
     $page->fillField('content_owners[1][target]', 'Directorate-General for Budget');
 
     $page->pressButton('Save configuration');
+    $page->fillField('site_owners[2][target]', 'Directorate-General for Competition');
     $page->fillField('content_owners[2][target]', 'Directorate-General for Climate Action');
     $page->pressButton('Save configuration');
 
     $assert_session->fieldValueEquals('Accessibility statement', '<front>');
-    $assert_session->fieldValueEquals('Site owner', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
+    $assert_session->fieldValueEquals('site_owners[0][target]', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
+    $assert_session->fieldValueEquals('site_owners[1][target]', 'European Automobile Manufacturers Association (http://publications.europa.eu/resource/authority/corporate-body/ACEA)');
+    $assert_session->fieldValueEquals('site_owners[2][target]', 'Directorate-General for Competition (http://publications.europa.eu/resource/authority/corporate-body/COMP)');
     $assert_session->fieldValueEquals('content_owners[0][target]', 'Audit Board of the European Communities (http://publications.europa.eu/resource/authority/corporate-body/ABEC)');
     $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');
     $assert_session->fieldValueEquals('content_owners[2][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
 
     $page->fillField('Accessibility statement', 'https://example.com');
+    $page->selectFieldOption('site_owners[2][_weight]', '-2');
     $page->selectFieldOption('content_owners[2][_weight]', '-2');
     $page->pressButton('Save configuration');
 
     $assert_session->fieldValueEquals('Accessibility statement', 'https://example.com');
-    $assert_session->fieldValueEquals('Site owner', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
+    $assert_session->fieldValueEquals('site_owners[0][target]', 'Directorate-General for Competition (http://publications.europa.eu/resource/authority/corporate-body/COMP)');
+    $assert_session->fieldValueEquals('site_owners[1][target]', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
+    $assert_session->fieldValueEquals('site_owners[2][target]', 'European Automobile Manufacturers Association (http://publications.europa.eu/resource/authority/corporate-body/ACEA)');
     $assert_session->fieldValueEquals('content_owners[0][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
     $assert_session->fieldValueEquals('content_owners[1][target]', 'Audit Board of the European Communities (http://publications.europa.eu/resource/authority/corporate-body/ABEC)');
     $assert_session->fieldValueEquals('content_owners[2][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');

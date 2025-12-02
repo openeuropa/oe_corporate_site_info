@@ -6,7 +6,6 @@ namespace Drupal\oe_corporate_site_info;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\rdf_skos\Entity\ConceptInterface;
 
 /**
  * Get current corporate site information.
@@ -48,16 +47,19 @@ class SiteInformation implements SiteInformationInterface {
   /**
    * {@inheritdoc}
    */
-  public function hasSiteOwner(): bool {
-    return (bool) $this->configFactory->get(self::CONFIG_NAME)->get('site_owner');
+  public function hasSiteOwners(): bool {
+    return (bool) $this->configFactory->get(self::CONFIG_NAME)->get('site_owners');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getSiteOwner(): ConceptInterface {
-    $id = $this->configFactory->get(self::CONFIG_NAME)->get('site_owner');
-    return $this->entityStorage->load($id);
+  public function getSiteOwners(): array {
+    $site_owner_ids = $this->configFactory->get(self::CONFIG_NAME)->get('site_owners');
+    if (empty($site_owner_ids)) {
+      return [];
+    }
+    return $this->entityStorage->loadMultiple($site_owner_ids);
   }
 
   /**

@@ -4,28 +4,26 @@ declare(strict_types=1);
 
 namespace Drupal\oe_corporate_site_info;
 
-use Drupal\rdf_skos\Entity\ConceptInterface;
-
 /**
  * Interface for corporate site information service.
  */
 interface SiteInformationInterface {
 
   /**
-   * Check whether site owner is set for the site.
+   * Check whether site owners is set for the site.
    *
    * @return bool
    *   TRUE if set, FALSE if it is not.
    */
-  public function hasSiteOwner(): bool;
+  public function hasSiteOwners(): bool;
 
   /**
-   * Get current site owner SKOS concept entity.
+   * Get current site owners SKOS concept entities.
    *
-   * @return \Drupal\rdf_skos\Entity\Concept
-   *   The current site owner SKOS concept entity.
+   * @return \Drupal\rdf_skos\Entity\ConceptInterface[]
+   *   The current site owners SKOS concept entities.
    */
-  public function getSiteOwner(): ConceptInterface;
+  public function getSiteOwners(): array;
 
   /**
    * Check whether default content owners are set for the site.
