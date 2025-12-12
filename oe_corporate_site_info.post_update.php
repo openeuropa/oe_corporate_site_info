@@ -55,3 +55,14 @@ function oe_corporate_site_info_post_update_00003(): void {
   }
   \Drupal::service('module_installer')->install(['link']);
 }
+
+/**
+ * Migrate config value of site_owner to site_owners.
+ */
+function oe_corporate_site_info_post_update_00004(): void {
+  $config = \Drupal::configFactory()->getEditable('oe_corporate_site_info.settings');
+  $site_owner = $config->get('site_owner');
+  if ($site_owner) {
+    $config->set('site_owners', [$site_owner])->clear('site_owner')->save();
+  }
+}

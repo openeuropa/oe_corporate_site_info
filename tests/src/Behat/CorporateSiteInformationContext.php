@@ -8,6 +8,7 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Drupal\DrupalExtension\Context\ConfigContext;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\rdf_skos\Entity\Concept;
+use Drupal\rdf_skos\Entity\ConceptInterface;
 
 /**
  * Set and assert corporate site information.
@@ -37,14 +38,22 @@ class CorporateSiteInformationContext extends RawDrupalContext {
   /**
    * Set site owner configuration.
    *
-   * @param string $label
-   *   Site owner SKOS concept label.
+   * @param string $labels
+   *   Site owner SKOS concept labels which can be delimited by comma.
    *
-   * @Given I set the site owner to :label
+   * @Given I set the site owner to :labels
    */
-  public function setSiteOwner(string $label): void {
-    $entity = $this->loadSkosConceptByLabel($label);
-    $this->configContext->setConfig('oe_corporate_site_info.settings', 'site_owner', $entity->id());
+  public function setSiteOwner(string $labels): void {
+    $labels = explode(', ', $labels);
+    $entity_ids = [];
+    foreach ($labels as $label) {
+      $entity = $this->loadSkosConceptByLabel($label);
+      if (!$entity instanceof ConceptInterface) {
+        throw new \InvalidArgumentException("The SKOS concept with label '{$label}' is not a valid Concept entity.");
+      }
+      $entity_ids[] = $entity->id();
+    }
+    $this->configContext->setConfig('oe_corporate_site_info.settings', 'site_owners', $entity_ids);
   }
 
   /**
@@ -58,15 +67,19 @@ class CorporateSiteInformationContext extends RawDrupalContext {
   public function assertSiteOwner(string $label): void {
     /** @var \Drupal\oe_corporate_site_info\SiteInformationInterface $site_information */
     $site_information = \Drupal::service('oe_corporate_site_info.site_information');
-    if (!$site_information->hasSiteOwner()) {
+    if (!$site_information->hasSiteOwners()) {
       throw new \InvalidArgumentException("No site owner has been set yet.");
     }
 
     $expected = $this->loadSkosConceptByLabel($label);
-    $actual = $site_information->getSiteOwner();
-    if ($expected->id() !== $actual->id()) {
-      throw new \Exception("The site owner is set to '{$actual->id()}', while is should be set to '{$expected->id()}'.");
+    $actual_site_owners = $site_information->getSiteOwners();
+    foreach ($actual_site_owners as $actual_site_owner) {
+      if ($expected->id() === $actual_site_owner->id()) {
+        return;
+      }
     }
+
+    throw new \Exception("The site owner should be set to '{$expected->id()}'.");
   }
 
   /**
