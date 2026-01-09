@@ -1,11 +1,23 @@
 # Changelog
 
+## [1.3.0](https://github.com/openeuropa/oe_corporate_site_info/tree/1.3.0) (2026-01-09)
+
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.2.3...1.3.0)
+
+**Merged pull requests:**
+
+- EWPP-6339: Cache docker images for GitHub actions. [\#54](https://github.com/openeuropa/oe_corporate_site_info/pull/54) ([nagyad](https://github.com/nagyad))
+- EWPP-6279: Co-owned sites. [\#53](https://github.com/openeuropa/oe_corporate_site_info/pull/53) ([sergepavle](https://github.com/sergepavle))
+- EWPP-6261: Bump composer/installers to 2.x. [\#52](https://github.com/openeuropa/oe_corporate_site_info/pull/52) ([nagyad](https://github.com/nagyad))
+- EWPP-6071: Upgrade to Drupal 11.2. [\#51](https://github.com/openeuropa/oe_corporate_site_info/pull/51) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.2.3](https://github.com/openeuropa/oe_corporate_site_info/tree/1.2.3) (2025-10-07)
 
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.2.2...1.2.3)
 
 **Merged pull requests:**
 
+- Release-1.2.3: Update changelog. [\#50](https://github.com/openeuropa/oe_corporate_site_info/pull/50) ([nagyad](https://github.com/nagyad))
 - EWPP-5994: Move CI to github actions. [\#49](https://github.com/openeuropa/oe_corporate_site_info/pull/49) ([hernani](https://github.com/hernani))
 - EWPP-5820: Move rdf\_skos to drupal gitlab. [\#48](https://github.com/openeuropa/oe_corporate_site_info/pull/48) ([nagyad](https://github.com/nagyad))
 - EWPP-5768: Update Drupal to 10.5. [\#47](https://github.com/openeuropa/oe_corporate_site_info/pull/47) ([intelektron](https://github.com/intelektron))
