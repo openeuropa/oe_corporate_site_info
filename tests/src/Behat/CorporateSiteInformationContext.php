@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_corporate_site_info\Behat;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Context\ConfigContext;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\rdf_skos\Entity\Concept;
@@ -53,7 +54,7 @@ class CorporateSiteInformationContext extends RawDrupalContext {
       }
       $entity_ids[] = $entity->id();
     }
-    $this->configContext->setConfig('oe_corporate_site_info.settings', 'site_owners', $entity_ids);
+    $this->setConfigValues('oe_corporate_site_info.settings', 'site_owners', $entity_ids);
   }
 
   /**
@@ -92,7 +93,7 @@ class CorporateSiteInformationContext extends RawDrupalContext {
    */
   public function setSiteDefaultContentOwner(string $label): void {
     $entity = $this->loadSkosConceptByLabel($label);
-    $this->configContext->setConfig('oe_corporate_site_info.settings', 'content_owners', [$entity->id()]);
+    $this->setConfigValues('oe_corporate_site_info.settings', 'content_owners', [$entity->id()]);
   }
 
   /**
@@ -146,6 +147,33 @@ class CorporateSiteInformationContext extends RawDrupalContext {
     }
 
     return reset($entities);
+  }
+
+  /**
+   * Prepare data and set config value through the 'setComplexConfig'  method.
+   *
+   * @param string $name
+   *   Configuration name.
+   * @param string $config_key
+   *   Configuration key.
+   * @param array $values
+   *   Values which should be passed to the config.
+   */
+  protected function setConfigValues(string $name, string $config_key, array $values): void {
+    $table_array = [
+      [
+        'key',
+        'value',
+      ],
+    ];
+    foreach ($values as $key => $value) {
+      $table_array[] = [
+        $key,
+        $value,
+      ];
+    }
+    $table_node = new TableNode($table_array);
+    $this->configContext->setComplexConfig($name, $config_key, $table_node);
   }
 
 }
