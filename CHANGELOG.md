@@ -1,11 +1,20 @@
 # Changelog
 
+## [1.3.1](https://github.com/openeuropa/oe_corporate_site_info/tree/1.3.1) (2026-04-20)
+
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.3.0...1.3.1)
+
+**Merged pull requests:**
+
+- EWPP-6461: Fix failure related to latest drupal/drupal-extension package version. [\#60](https://github.com/openeuropa/oe_corporate_site_info/pull/60) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.3.0](https://github.com/openeuropa/oe_corporate_site_info/tree/1.3.0) (2026-01-09)
 
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.2.3...1.3.0)
 
 **Merged pull requests:**
 
+- Release-1.3.0: Update changelog. [\#55](https://github.com/openeuropa/oe_corporate_site_info/pull/55) ([nagyad](https://github.com/nagyad))
 - EWPP-6339: Cache docker images for GitHub actions. [\#54](https://github.com/openeuropa/oe_corporate_site_info/pull/54) ([nagyad](https://github.com/nagyad))
 - EWPP-6279: Co-owned sites. [\#53](https://github.com/openeuropa/oe_corporate_site_info/pull/53) ([sergepavle](https://github.com/sergepavle))
 - EWPP-6261: Bump composer/installers to 2.x. [\#52](https://github.com/openeuropa/oe_corporate_site_info/pull/52) ([nagyad](https://github.com/nagyad))
