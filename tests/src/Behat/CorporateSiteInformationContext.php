@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_corporate_site_info\Behat;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Context\ConfigContext;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\rdf_skos\Entity\Concept;
@@ -44,7 +45,7 @@ class CorporateSiteInformationContext extends RawDrupalContext {
    */
   public function setSiteOwner(string $label): void {
     $entity = $this->loadSkosConceptByLabel($label);
-    $this->configContext->setConfig('oe_corporate_site_info.settings', 'site_owner', $entity->id());
+    $this->configContext->setBasicConfig('oe_corporate_site_info.settings', 'site_owner', $entity->id());
   }
 
   /**
@@ -79,7 +80,10 @@ class CorporateSiteInformationContext extends RawDrupalContext {
    */
   public function setSiteDefaultContentOwner(string $label): void {
     $entity = $this->loadSkosConceptByLabel($label);
-    $this->configContext->setConfig('oe_corporate_site_info.settings', 'content_owners', [$entity->id()]);
+    $this->configContext->setComplexConfig('oe_corporate_site_info.settings', 'content_owners', new TableNode([
+      ['key', 'value'],
+      [0, $entity->id()],
+    ]));
   }
 
   /**
