@@ -57,4 +57,20 @@ interface SiteInformationInterface {
    */
   public function getAccessibilityLink(): string;
 
+  /**
+   * Check whether a subscribe for updates link is set for the site.
+   *
+   * @return bool
+   *   TRUE if set, FALSE if it is not.
+   */
+  public function hasSubscribeLink(): bool;
+
+  /**
+   * Get the subscribe for updates link set for the site.
+   *
+   * @return string
+   *   The subscribe for updates link.
+   */
+  public function getSubscribeLink(): string;
+
 }

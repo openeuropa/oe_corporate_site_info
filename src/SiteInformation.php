@@ -101,4 +101,23 @@ class SiteInformation implements SiteInformationInterface {
     return $accessibility_link;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function hasSubscribeLink(): bool {
+    return (bool) $this->configFactory->get(self::CONFIG_NAME)->get('subscribe');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSubscribeLink(): string {
+    $subscribe_link = $this->configFactory->get(self::CONFIG_NAME)->get('subscribe');
+    if (empty($subscribe_link)) {
+      return '';
+    }
+
+    return $subscribe_link;
+  }
+
 }
