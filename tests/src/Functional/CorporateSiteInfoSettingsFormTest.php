@@ -58,6 +58,7 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     ]));
     $this->drupalGet('/admin/config/system/site-information');
     $this->assertSession()->fieldExists('Accessibility statement');
+    $this->assertSession()->fieldExists('Subscribe for updates');
     $this->assertSession()->pageTextContains('Default content owner(s)');
     $this->assertSession()->fieldExists('Site owner');
 
@@ -69,6 +70,7 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     $this->assertSession()->pageTextContains('Accessibility statement field is required.');
     $this->assertSession()->pageTextContains('Site owner field is required.');
     $this->assertSession()->pageTextContains('Content owner field is required.');
+    $this->assertSession()->pageTextNotContains('Subscribe for updates field is required.');
     $page->fillField('Accessibility statement', '<front>');
     $page->fillField('site_owners[0][target]', 'Directorate-General for Agriculture and Rural Development');
     $page->fillField('content_owners[0][target]', 'Audit Board of the European Communities');
@@ -91,6 +93,7 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     $page->pressButton('Save configuration');
 
     $assert_session->fieldValueEquals('Accessibility statement', '<front>');
+    $assert_session->fieldValueEquals('Subscribe for updates', '');
     $assert_session->fieldValueEquals('site_owners[0][target]', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
     $assert_session->fieldValueEquals('site_owners[1][target]', 'European Automobile Manufacturers Association (http://publications.europa.eu/resource/authority/corporate-body/ACEA)');
     $assert_session->fieldValueEquals('site_owners[2][target]', 'Directorate-General for Competition (http://publications.europa.eu/resource/authority/corporate-body/COMP)');
@@ -99,11 +102,13 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     $assert_session->fieldValueEquals('content_owners[2][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
 
     $page->fillField('Accessibility statement', 'https://example.com');
+    $page->fillField('Subscribe for updates', 'https://example.com/subscribe');
     $page->selectFieldOption('site_owners[2][_weight]', '-2');
     $page->selectFieldOption('content_owners[2][_weight]', '-2');
     $page->pressButton('Save configuration');
 
     $assert_session->fieldValueEquals('Accessibility statement', 'https://example.com');
+    $assert_session->fieldValueEquals('Subscribe for updates', 'https://example.com/subscribe');
     $assert_session->fieldValueEquals('site_owners[0][target]', 'Directorate-General for Competition (http://publications.europa.eu/resource/authority/corporate-body/COMP)');
     $assert_session->fieldValueEquals('site_owners[1][target]', 'Directorate-General for Agriculture and Rural Development (http://publications.europa.eu/resource/authority/corporate-body/AGRI)');
     $assert_session->fieldValueEquals('site_owners[2][target]', 'European Automobile Manufacturers Association (http://publications.europa.eu/resource/authority/corporate-body/ACEA)');
@@ -115,25 +120,33 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     $page->clickLink('Translate system information');
     $page->clickLink('Add');
     $assert_session->pageTextContains('Accessibility statement');
+    $assert_session->pageTextContains('Subscribe for updates');
     $assert_session->pageTextNotContains('Site owner');
     $assert_session->pageTextNotContains('Default content owner(s)');
     $assert_session->fieldValueEquals('translation[config_names][oe_corporate_site_info.settings][accessibility]', 'https://example.com');
     $page->fillField('translation[config_names][oe_corporate_site_info.settings][accessibility]', 'https://example.com/bg');
+    $assert_session->fieldValueEquals('translation[config_names][oe_corporate_site_info.settings][subscribe]', 'https://example.com/subscribe');
+    $page->fillField('translation[config_names][oe_corporate_site_info.settings][subscribe]', 'https://example.com/subscribe/bg');
     $page->pressButton('Save translation');
     $assert_session->pageTextContains('Successfully saved Bulgarian translation.');
 
     $page->clickLink('Settings');
     $page->fillField('Accessibility statement', 'Non-existing node');
+    $page->fillField('Subscribe for updates', 'Non-existing node');
     $page->fillField('Site owner', 'invalid skos term');
     $page->fillField('content_owners[1][target]', '');
     $page->pressButton('Save configuration');
-    $assert_session->pageTextContainsOnce('Manually entered paths should start with one of the following characters: / ? #');
+    // The message is shown twice, both for the accessibility field and for
+    // the subscribe field.
+    $assert_session->pageTextContains('Manually entered paths should start with one of the following characters: / ? #');
     $assert_session->pageTextContainsOnce('There are no skos concept entities matching "invalid skos term".');
     $page->fillField('Accessibility statement', 'https://example.com');
+    $page->fillField('Subscribe for updates', 'https://example.com/subscribe');
     $page->fillField('Site owner', 'European Patent Office');
 
     $page->pressButton('Save configuration');
     $assert_session->fieldValueEquals('Accessibility statement', 'https://example.com');
+    $assert_session->fieldValueEquals('Subscribe for updates', 'https://example.com/subscribe');
     $assert_session->fieldValueEquals('Site owner', 'European Patent Office (http://publications.europa.eu/resource/authority/corporate-body/EPOFF)');
     $assert_session->fieldValueEquals('content_owners[0][target]', 'Directorate-General for Climate Action (http://publications.europa.eu/resource/authority/corporate-body/CLIMA)');
     $assert_session->fieldValueEquals('content_owners[1][target]', 'Directorate-General for Budget (http://publications.europa.eu/resource/authority/corporate-body/BUDG)');

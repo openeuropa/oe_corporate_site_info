@@ -18,3 +18,7 @@ oe_corporate_site_info.settings:
     accessibility:
       type: label
       label: 'Accessibility statement'
+    # Use label type, so it gets exposed to the translation system.
+    subscribe:
+      type: label
+      label: 'Subscribe for updates'

@@ -38,6 +38,24 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
     ],
   ];
 
+  $subscribe_uri = $corporate_site_info->get('subscribe') ?? '';
+  $form['subscribe'] = [
+    '#type' => 'textfield',
+    '#title' => t('Subscribe for updates'),
+    '#required' => FALSE,
+    '#description' => t('Link to the subscribe for updates page of your website.'),
+    '#process' => \Drupal::service('element_info')->getInfoProperty('entity_autocomplete', '#process'),
+    '#default_value' => _oe_corporate_site_info_get_privacy_default_value($subscribe_uri),
+    '#selection_handler' => 'default',
+    '#target_type' => 'node',
+    '#autocreate' => FALSE,
+    '#element_validate' => [[LinkWidget::class, 'validateUriElement']],
+    // Disable autocompletion when the first character is '/', '#' or '?'.
+    '#attributes' => [
+      'data-autocomplete-first-character-blacklist' => '/#?',
+    ],
+  ];
+
   $form['oe_site_information'] = [
     '#type' => 'details',
     '#title' => t('Corporate site information'),
@@ -186,5 +204,6 @@ function _oe_corporate_site_info_settings_form_submit(array &$form, FormStateInt
   $content_owner_ids = array_column($form_state->getValue('content_owners', []), 'target');
   $corporate_site_info->set('content_owners', $content_owner_ids);
   $corporate_site_info->set('accessibility', $form_state->getValue('accessibility'));
+  $corporate_site_info->set('subscribe', $form_state->getValue('subscribe'));
   $corporate_site_info->save();
 }
