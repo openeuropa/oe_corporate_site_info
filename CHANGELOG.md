@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.4.0](https://github.com/openeuropa/oe_corporate_site_info/tree/1.4.0) (2026-07-01)
+
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.3.1...1.4.0)
+
+**Merged pull requests:**
+
+- EWPP-6963: Add "Subscribe for updates" to the site information form. [\#63](https://github.com/openeuropa/oe_corporate_site_info/pull/63) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-6514: Support D11.3. [\#57](https://github.com/openeuropa/oe_corporate_site_info/pull/57) ([nagyad](https://github.com/nagyad))
+
 ## [1.3.1](https://github.com/openeuropa/oe_corporate_site_info/tree/1.3.1) (2026-04-20)
 
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.3.0...1.3.1)
