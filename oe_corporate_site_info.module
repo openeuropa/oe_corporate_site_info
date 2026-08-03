@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 use Drupal\Core\Entity\Element\EntityAutocomplete;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\link\LinkItemInterface;
 use Drupal\link\Plugin\Field\FieldWidget\LinkWidget;
 use Drupal\node\NodeInterface;
 use Drupal\rdf_skos\Entity\ConceptInterface;
@@ -32,6 +33,7 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
     '#target_type' => 'node',
     '#autocreate' => FALSE,
     '#element_validate' => [[LinkWidget::class, 'validateUriElement']],
+    '#link_type' => LinkItemInterface::LINK_GENERIC,
     // Disable autocompletion when the first character is '/', '#' or '?'.
     '#attributes' => [
       'data-autocomplete-first-character-blacklist' => '/#?',
@@ -50,6 +52,7 @@ function oe_corporate_site_info_form_system_site_information_settings_alter(&$fo
     '#target_type' => 'node',
     '#autocreate' => FALSE,
     '#element_validate' => [[LinkWidget::class, 'validateUriElement']],
+    '#link_type' => LinkItemInterface::LINK_GENERIC,
     // Disable autocompletion when the first character is '/', '#' or '?'.
     '#attributes' => [
       'data-autocomplete-first-character-blacklist' => '/#?',

@@ -137,8 +137,12 @@ class CorporateSiteInfoSettingsFormTest extends BrowserTestBase {
     $page->fillField('content_owners[1][target]', '');
     $page->pressButton('Save configuration');
     // The message is shown twice, both for the accessibility field and for
-    // the subscribe field.
-    $assert_session->pageTextContains('Manually entered paths should start with one of the following characters: / ? #');
+    // the subscribe field. The wording of the message changed in Drupal 11.4.
+    // @see \Drupal\link\Plugin\Field\FieldWidget\LinkWidget::validateUriElement()
+    $expected_message = version_compare(\Drupal::VERSION, '11.4', '>=')
+      ? 'Enter a content title to select it, or enter an internal path starting with /, ? or #.'
+      : 'Manually entered paths should start with one of the following characters: / ? #';
+    $assert_session->pageTextContains($expected_message);
     $assert_session->pageTextContainsOnce('There are no skos concept entities matching "invalid skos term".');
     $page->fillField('Accessibility statement', 'https://example.com');
     $page->fillField('Subscribe for updates', 'https://example.com/subscribe');
