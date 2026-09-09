@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://github.com/openeuropa/oe_corporate_site_info/tree/1.5.0) (2026-09-09)
+
+[Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.4.0...1.5.0)
+
+**Merged pull requests:**
+
+- EWPP-6988: Trigger pipeline. [\#65](https://github.com/openeuropa/oe_corporate_site_info/pull/65) ([nagyad](https://github.com/nagyad))
+
 ## [1.4.0](https://github.com/openeuropa/oe_corporate_site_info/tree/1.4.0) (2026-07-01)
 
 [Full Changelog](https://github.com/openeuropa/oe_corporate_site_info/compare/1.3.1...1.4.0)
