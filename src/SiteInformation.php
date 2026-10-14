@@ -20,9 +20,9 @@ class SiteInformation implements SiteInformationInterface {
   /**
    * SKOS concept entity storage.
    *
-   * @var \Drupal\Core\Entity\ContentEntityStorageInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $entityStorage;
+  protected $entityTypeManager;
 
   /**
    * Config factory service.
@@ -40,7 +40,7 @@ class SiteInformation implements SiteInformationInterface {
    *   Configuration factory service.
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager, ConfigFactoryInterface $configFactory) {
-    $this->entityStorage = $entityTypeManager->getStorage('skos_concept');
+    $this->entityTypeManager = $entityTypeManager;
     $this->configFactory = $configFactory;
   }
 
@@ -59,7 +59,7 @@ class SiteInformation implements SiteInformationInterface {
     if (empty($site_owner_ids)) {
       return [];
     }
-    return $this->entityStorage->loadMultiple($site_owner_ids);
+    return $this->entityTypeManager->getStorage('skos_concept')->loadMultiple($site_owner_ids);
   }
 
   /**
@@ -79,7 +79,7 @@ class SiteInformation implements SiteInformationInterface {
       return [];
     }
 
-    return $this->entityStorage->loadMultiple($content_owner_ids);
+    return $this->entityTypeManager->getStorage('skos_concept')->loadMultiple($content_owner_ids);
   }
 
   /**
