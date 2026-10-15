@@ -210,3 +210,13 @@ function _oe_corporate_site_info_settings_form_submit(array &$form, FormStateInt
   $corporate_site_info->set('subscribe', $form_state->getValue('subscribe'));
   $corporate_site_info->save();
 }
+
+/**
+ * Implments hook_module_implements_alter().
+ */
+function oe_corporate_site_info_module_implements_alter(&$implementations, $hook) {
+  if ($hook === 'requirements') {
+    // We have our own version.
+    unset($implementations['sparql_entity_storage']);
+  }
+}
